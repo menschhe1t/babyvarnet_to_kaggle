@@ -4,13 +4,23 @@ import shutil
 import os, sys
 from pathlib import Path
 
-if os.getcwd() + '/utils/model/' not in sys.path:
-    sys.path.insert(1, os.getcwd() + '/utils/model/')
+# if os.getcwd() + '/utils/model/' not in sys.path:
+#     sys.path.insert(1, os.getcwd() + '/utils/model/')
+# from utils.learning.train_part import train
+
+# if os.getcwd() + '/utils/common/' not in sys.path:
+#     sys.path.insert(1, os.getcwd() + '/utils/common/')
+# from utils.common.utils import seed_fix
+
+
+if os.getcwd() + '/working/babyvarnet_to_kaggle/utils/model' not in sys.path:
+    sys.path.insert(1, os.getcwd() + '/working/babyvarnet_to_kaggle/utils/model')
 from utils.learning.train_part import train
 
-if os.getcwd() + '/utils/common/' not in sys.path:
-    sys.path.insert(1, os.getcwd() + '/utils/common/')
+if os.getcwd() + '/working/babyvarnet_to_kaggle/utils/common/' not in sys.path:
+    sys.path.insert(1, os.getcwd() + '/working/babyvarnet_to_kaggle/utils/common/')
 from utils.common.utils import seed_fix
+
 
 
 
