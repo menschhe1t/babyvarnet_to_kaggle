@@ -4,6 +4,8 @@ from utils.data.transforms import DataTransform
 from torch.utils.data import Dataset, DataLoader
 from pathlib import Path
 import numpy as np
+from pathlib import PosixPath
+
 
 class SliceData(Dataset):
     def __init__(self, root, transform, input_key, target_key, forward=False):
