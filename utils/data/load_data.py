@@ -77,7 +77,7 @@ class SliceData(Dataset):
                 target = hf[self.target_key][dataslice] #0번째 채널 이미지
                 attrs = dict(hf.attrs)
             
-        return self.transform(mask, input, target, attrs, image_name.fname , dataslice)
+        return self.transform(None, input, target, attrs, image_name.fname , dataslice)
 #        return self.transform(mask, input, target, attrs, kspace_fname.fname , dataslice)
 
 def create_data_loaders(data_path, args, shuffle=False, isforward=False):
