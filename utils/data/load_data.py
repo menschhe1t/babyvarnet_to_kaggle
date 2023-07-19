@@ -14,7 +14,7 @@ class SliceData(Dataset):
         self.target_key = target_key
         self.forward = forward
         self.image_examples = []
-        self.kspace_examples = []
+        #self.kspace_examples = []
 
         if not forward:
             image_files = list(Path(root / "image").iterdir())
@@ -25,13 +25,13 @@ class SliceData(Dataset):
                     (fname, slice_ind) for slice_ind in range(num_slices)
                 ]
 
-        kspace_files = list(Path(root / "kspace").iterdir())
-        for fname in sorted(kspace_files):
-            num_slices = self._get_metadata(fname)
-
-            self.kspace_examples += [
-                (fname, slice_ind) for slice_ind in range(num_slices)
-            ]
+        #kspace_files = list(Path(root / "kspace").iterdir())
+        #for fname in sorted(kspace_files):
+        #    num_slices = self._get_metadata(fname)
+        #
+        #    self.kspace_examples += [
+        #        (fname, slice_ind) for slice_ind in range(num_slices)
+        #    ]
 
 
     def _get_metadata(self, fname):
