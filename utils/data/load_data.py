@@ -35,6 +35,7 @@ class SliceData(Dataset):
 
 
     def _get_metadata(self, fname):
+        ####################################################
         print(fname)
         print(type(fname))
         if fname == PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc4_141.h5'):
@@ -44,16 +45,8 @@ class SliceData(Dataset):
         if fname == PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc8_99.h5'):
             fname = PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc8_2.h5')
             print('path changed')
-            
+        ####################################################
         with h5py.File(fname, "r") as hf:
-            #################################
-            # img_num = fname.split('/')[-1].split('_')[-1].split('.')[0]
-            # acc_num = fname.split('/')[-1].split('_')[1][-1]
-            # print(img_num)
-            # print(acc_num)
-            # if img_num == '141' and acc_num == '4' :
-            #    
-            ################################
             
             if self.input_key in hf.keys():
                 num_slices = hf[self.input_key].shape[0]
@@ -67,11 +60,13 @@ class SliceData(Dataset):
     def __getitem__(self, i):
         if not self.forward:
             image_fname, _ = self.image_examples[i]
-        kspace_fname, dataslice = self.kspace_examples[i]
+            
+        #kspace_fname, dataslice = self.kspace_examples[i]
 
-        with h5py.File(kspace_fname, "r") as hf:
-            input = hf[self.input_key][dataslice]
-            mask =  np.array(hf["mask"])
+        #with h5py.File(kspace_fname, "r") as hf:
+        #    input = hf[self.input_key][dataslice]
+        #    mask =  np.array(hf["mask"])
+        
         if self.forward:
             target = -1
             attrs = -1
@@ -80,7 +75,7 @@ class SliceData(Dataset):
                 target = hf[self.target_key][dataslice]
                 attrs = dict(hf.attrs)
             
-        return self.transform(mask, input, target, attrs, kspace_fname.name, dataslice)
+        return self.transform(mask, input, target, attrs, None , dataslice)
 
 
 def create_data_loaders(data_path, args, shuffle=False, isforward=False):
