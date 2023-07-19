@@ -49,8 +49,21 @@ class SliceData(Dataset):
 
     def __getitem__(self, i):
         fname, dataslice = self.examples[i]
-        print('getitem')
-        print(fname)
+        a=''
+        #################################################### 예외처리
+        if fname == PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc4_141.h5'):
+            a = PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc4_1.h5')
+            print('path changed')
+
+        elif fname == PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc8_99.h5'):
+            a = PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc8_2.h5')
+            print('path changed')
+        elif fname == PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/val/image/brain_acc8_190.h5'):
+            a = PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/val/image/brain_acc8_189.h5')
+            print('path changed')
+        else :
+            a = fname
+        ####################################################
         with h5py.File(fname, "r") as hf:
             input = hf[self.input_key][dataslice]
             if self.forward:
