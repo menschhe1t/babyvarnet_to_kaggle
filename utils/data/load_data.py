@@ -36,11 +36,13 @@ class SliceData(Dataset):
         with h5py.File(fname, "r") as hf:
             #################################
             print(fname)
-            img_num = fname.split('/')[-1].split('_')[-1].split('.')[0]
-            acc_num = fname.split('/')[-1].split('_')[1][-1]
-            print(img_num)
-            print(acc_num)
-            if img_num == '141' and acc_num == '4' :
+            # img_num = fname.split('/')[-1].split('_')[-1].split('.')[0]
+            # acc_num = fname.split('/')[-1].split('_')[1][-1]
+            # print(img_num)
+            # print(acc_num)
+            # if img_num == '141' and acc_num == '4' :
+            #     
+            if fname == '/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc4_141.h5'
                 fname = '/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc4_1.h5'
 
             ################################
