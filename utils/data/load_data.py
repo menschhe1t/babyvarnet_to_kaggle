@@ -40,6 +40,11 @@ class SliceData(Dataset):
         if fname == PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc4_141.h5'):
             fname = PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc4_1.h5')
             print('path changed')
+
+        if fname == PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc8_99.h5'):
+            fname = PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc8_2.h5')
+            print('path changed')
+            
         with h5py.File(fname, "r") as hf:
             #################################
             # img_num = fname.split('/')[-1].split('_')[-1].split('.')[0]
