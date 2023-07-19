@@ -62,7 +62,7 @@ class SliceData(Dataset):
         return len(self.image_examples)
     def __getitem__(self, i):
         if not self.forward:
-            image_fname, _ = self.image_examples[i]
+            image_fname, dataslice = self.image_examples[i]
             
         #kspace_fname, dataslice = self.kspace_examples[i]
 
