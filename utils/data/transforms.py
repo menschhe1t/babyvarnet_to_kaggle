@@ -24,8 +24,8 @@ class DataTransform:
             target = -1
             maximum = -1
         
-        #kspace = to_tensor(input * mask)
-        #kspace = torch.stack((kspace.real, kspace.imag), dim=-1)
-        #mask = torch.from_numpy(mask.reshape(1, 1, kspace.shape[-2], 1).astype(np.float32)).byte()
-        # return mask, kspace, target, maximum, fname, slice
-        return None, None, target, maximum, fname, slice
+        kspace = to_tensor(input * mask)
+        kspace = torch.stack((kspace.real, kspace.imag), dim=-1)
+        mask = torch.from_numpy(mask.reshape(1, 1, kspace.shape[-2], 1).astype(np.float32)).byte()
+        return mask, kspace, target, maximum, fname, slice
+        #return mask, None, target, maximum, fname, slice
