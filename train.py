@@ -53,7 +53,7 @@ if __name__ == '__main__':
     # fix seed
     if args.seed is not None:
         seed_fix(args.seed)
-    print(args)
+    
     args.exp_dir = '../result' / args.net_name / 'checkpoints'
     args.val_dir = '../result' / args.net_name / 'reconstructions_val'
     args.main_dir = '../result' / args.net_name / __file__
@@ -61,6 +61,5 @@ if __name__ == '__main__':
 
     args.exp_dir.mkdir(parents=True, exist_ok=True)
     args.val_dir.mkdir(parents=True, exist_ok=True)
-    print(args)
     
     train(args)
