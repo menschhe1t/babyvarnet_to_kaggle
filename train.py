@@ -32,8 +32,8 @@ def parse():
     parser.add_argument('-l', '--lr', type=float, default=1e-3, help='Learning rate')
     parser.add_argument('-r', '--report-interval', type=int, default=500, help='Report interval')
     parser.add_argument('-n', '--net-name', type=Path, default='test_varnet', help='Name of network')
-    parser.add_argument('-t', '--data-path-train', type=Path, default='/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/', help='Directory of train data')
-    parser.add_argument('-v', '--data-path-val', type=Path, default='/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/val/', help='Directory of validation data')
+    parser.add_argument('-t', '--data-path-train', type=Path, default='/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/', help='Directory of train data')
+    parser.add_argument('-v', '--data-path-val', type=Path, default='/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/val/image/', help='Directory of validation data')
     
     parser.add_argument('--cascade', type=int, default=1, help='Number of cascades | Should be less than 12') ## important hyperparameter
     parser.add_argument('--chans', type=int, default=9, help='Number of channels for cascade U-Net | 18 in original varnet') ## important hyperparameter
