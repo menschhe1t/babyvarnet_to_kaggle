@@ -21,6 +21,7 @@ class SliceData(Dataset):
             ]
 
     def _get_metadata(self, fname):
+        print(fname)
         with h5py.File(fname, "r") as hf:
             num_slices = hf[self.input_key].shape[0]
         return num_slices
