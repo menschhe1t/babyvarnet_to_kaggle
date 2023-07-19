@@ -21,17 +21,18 @@ class SliceData(Dataset):
             for fname in sorted(image_files): #fname를 하나씩 불러옴
                 num_slices = self._get_metadata(fname) # fname에 대해 슬라이스 된 space가 몇개인지 ex 16
 
-                self.image_examples += [
+                self.image_examples += [ 
                     (fname, slice_ind) for slice_ind in range(num_slices) # 0부터 15까지 [(fname,0),,,,(fname,15)]
+                    
                 ]
 
         #kspace_files = list(Path(root / "kspace").iterdir())
-        #for fname in sorted(kspace_files):
-        #    num_slices = self._get_metadata(fname)
-        #
-        #    self.kspace_examples += [
-        #        (fname, slice_ind) for slice_ind in range(num_slices)
-        #    ]
+        # for fname in sorted(kspace_files):
+        #     num_slices = self._get_metadata(fname)
+        
+        #     self.kspace_examples += [
+        #         (fname, slice_ind) for slice_ind in range(num_slices)
+        #     ]
 
 
     def _get_metadata(self, fname):
@@ -74,6 +75,9 @@ class SliceData(Dataset):
             attrs = -1
         else: #여기를 따라감
             with h5py.File(image_fname, "r") as hf:
+                ##################
+                input = hf[self.input_key][dataslice]
+                ################
                 target = hf[self.target_key][dataslice] #0번째 채널 이미지
                 attrs = dict(hf.attrs)
             
