@@ -41,7 +41,7 @@ if __name__ == '__main__':
     args.exp_dir = '/kaggle/working/result' / args.net_name / 'checkpoints'
     args.val_dir = '/kaggle/working/result' / args.net_name / 'reconstructions_val'
     args.main_dir = '/kaggle/working/result' / args.net_name / __file__
-    args.val_loss_dir = '../result' / args.net_name
+    args.val_loss_dir = '/kaggle/working/result' / args.net_name
 
 
     args.exp_dir.mkdir(parents=True, exist_ok=True)
