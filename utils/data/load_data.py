@@ -42,9 +42,9 @@ class SliceData(Dataset):
             # print(acc_num)
             # if img_num == '141' and acc_num == '4' :
             #     
-            if fname == '/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc4_141.h5':
-                fname = '/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc4_1.h5'
-
+            if fname == PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc4_141.h5'):
+                fname = PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc4_1.h5')
+                print('path changed')
             ################################
             if self.input_key in hf.keys():
                 num_slices = hf[self.input_key].shape[0]
