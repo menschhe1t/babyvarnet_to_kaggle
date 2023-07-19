@@ -63,7 +63,8 @@ class SliceData(Dataset):
             print('path changed')
         else :
             a = fname
-
+        fname = a
+        
         print('getitem')
         print(fname)
         ####################################################
