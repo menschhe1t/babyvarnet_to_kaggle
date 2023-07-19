@@ -82,8 +82,8 @@ class SliceData(Dataset):
                 attrs = dict(hf.attrs)
                 mask =  np.zeros((input.shape[0],input.shape[1],input.shape[2]))
             
-#        return self.transform(None, input, target, attrs, image_fname.name , dataslice)
-        return self.transform(mask, input, target, attrs, kspace_fname.name , dataslice)
+        return self.transform(mask, input, target, attrs, image_fname.name , dataslice)
+#        return self.transform(mask, input, target, attrs, kspace_fname.name , dataslice)
 
 def create_data_loaders(data_path, args, shuffle=False, isforward=False):
     if isforward == False:
