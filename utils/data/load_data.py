@@ -17,12 +17,12 @@ class SliceData(Dataset):
         #self.kspace_examples = []
 
         if not forward:
-            image_files = list(Path(root / "image").iterdir())
-            for fname in sorted(image_files):
-                num_slices = self._get_metadata(fname)
+            image_files = list(Path(root / "image").iterdir()) # h5 루트모음
+            for fname in sorted(image_files): #fname를 하나씩 불러옴
+                num_slices = self._get_metadata(fname) # fname에 대해 슬라이스 된 space가 몇개인지 ex 16
 
                 self.image_examples += [
-                    (fname, slice_ind) for slice_ind in range(num_slices)
+                    (fname, slice_ind) for slice_ind in range(num_slices) # 0부터 15까지 [(fname,0),,,,(fname,15)]
                 ]
 
         #kspace_files = list(Path(root / "kspace").iterdir())
@@ -35,9 +35,7 @@ class SliceData(Dataset):
 
 
     def _get_metadata(self, fname):
-        ####################################################
-        print(fname)
-        print(type(fname))
+        #################################################### 예외처리
         if fname == PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc4_141.h5'):
             fname = PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc4_1.h5')
             print('path changed')
@@ -60,9 +58,10 @@ class SliceData(Dataset):
     def __len__(self):
         #return len(self.kspace_examples)
         return len(self.image_examples)
+        
     def __getitem__(self, i):
         if not self.forward:
-            image_fname, dataslice = self.image_examples[i]
+            image_fname, dataslice = self.image_examples[i] #(fname,0)...
             
         #kspace_fname, dataslice = self.kspace_examples[i]
 
@@ -73,13 +72,13 @@ class SliceData(Dataset):
         if self.forward:
             target = -1
             attrs = -1
-        else:
+        else: #여기를 따라감
             with h5py.File(image_fname, "r") as hf:
-                target = hf[self.target_key][dataslice]
+                target = hf[self.target_key][dataslice] #0번째 채널 이미지
                 attrs = dict(hf.attrs)
             
-        return self.transform(None, input, target, attrs, None , dataslice)
-
+        return self.transform(mask, input, target, attrs, image_name.fname , dataslice)
+#        return self.transform(mask, input, target, attrs, kspace_fname.fname , dataslice)
 
 def create_data_loaders(data_path, args, shuffle=False, isforward=False):
     if isforward == False:
@@ -88,7 +87,7 @@ def create_data_loaders(data_path, args, shuffle=False, isforward=False):
     else:
         max_key_ = -1
         target_key_ = -1
-    data_storage = SliceData(
+    data_storage = SliceData( # 위에서 정의한 slice data call
         root=data_path,
         transform=DataTransform(isforward, max_key_),
         input_key=args.input_key,
@@ -96,7 +95,7 @@ def create_data_loaders(data_path, args, shuffle=False, isforward=False):
         forward = isforward
     )
 
-    data_loader = DataLoader(
+    data_loader = DataLoader( # 파이토치의 데이터로더
         dataset=data_storage,
         batch_size=args.batch_size,
         shuffle=shuffle,
