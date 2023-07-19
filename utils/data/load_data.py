@@ -22,6 +22,18 @@ class SliceData(Dataset):
 
     def _get_metadata(self, fname):
         print(fname)
+        #################################################### 예외처리
+        if fname == PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc4_141.h5'):
+            fname = PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc4_1.h5')
+            print('path changed')
+
+        if fname == PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc8_99.h5'):
+            fname = PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc8_2.h5')
+            print('path changed')
+        if fname == PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/val/image/brain_acc8_190.h5'):
+            fname = PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/val/image/brain_acc8_189.h5')
+            print('path changed')
+        ####################################################
         with h5py.File(fname, "r") as hf:
             num_slices = hf[self.input_key].shape[0]
         return num_slices
