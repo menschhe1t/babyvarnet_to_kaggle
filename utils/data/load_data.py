@@ -22,24 +22,24 @@ class SliceData(Dataset):
             ]
 
     def _get_metadata(self, fname):
-        print(fname)
-        a=''
         #################################################### 예외처리
+        #print(fname)
+        a=''
         if fname == PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc4_141.h5'):
             a = PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc4_1.h5')
-            print('path changed')
+            #print('path changed')
 
         elif fname == PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc8_99.h5'):
             a = PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc8_2.h5')
-            print('path changed')
+        #    print('path changed')
         elif fname == PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/val/image/brain_acc8_190.h5'):
             a = PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/val/image/brain_acc8_189.h5')
-            print('path changed')
+         #   print('path changed')
         else :
             a = fname
+        fname=a
         ####################################################
         
-        fname=a
         with h5py.File(fname, "r") as hf:
             num_slices = hf[self.input_key].shape[0]
         return num_slices
@@ -49,24 +49,25 @@ class SliceData(Dataset):
 
     def __getitem__(self, i):
         fname, dataslice = self.examples[i]
-        a=''
+        
         #################################################### 예외처리
+        a=''
         if fname == PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc4_141.h5'):
             a = PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc4_1.h5')
-            print('path changed')
+        #    print('path changed')
 
         elif fname == PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc8_99.h5'):
             a = PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/brain_acc8_2.h5')
-            print('path changed')
+        #    print('path changed')
         elif fname == PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/val/image/brain_acc8_190.h5'):
             a = PosixPath('/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/val/image/brain_acc8_189.h5')
-            print('path changed')
+        #    print('path changed')
         else :
             a = fname
         fname = a
         
-        print('getitem')
-        print(fname)
+        #print('getitem')
+        #print(fname)
         ####################################################
         with h5py.File(fname, "r") as hf:
             input = hf[self.input_key][dataslice]
