@@ -78,7 +78,7 @@ class SliceData(Dataset):
                 target = hf[self.target_key][dataslice]
                 attrs = dict(hf.attrs)
             
-        return self.transform(mask, input, target, attrs, None , dataslice)
+        return self.transform(None, input, target, attrs, None , dataslice)
 
 
 def create_data_loaders(data_path, args, shuffle=False, isforward=False):
