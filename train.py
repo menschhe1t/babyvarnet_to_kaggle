@@ -5,8 +5,8 @@ from pathlib import Path
 
 import os, sys
 
-if os.getcwd() + '/utils/common/' not in sys.path:
-    sys.path.insert(1, os.getcwd() + '/utils/common/')
+if os.getcwd() + '/kaggle/working/babyvarnet_to_kaggle/utils/common/' not in sys.path:
+    sys.path.insert(1, os.getcwd() + '/kaggle/working/babyvarnet_to_kaggle/utils/common/')
 from utils.common.utils import seed_fix
 
 
