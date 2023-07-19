@@ -44,6 +44,8 @@ class SliceData(Dataset):
 
     def __getitem__(self, i):
         fname, dataslice = self.examples[i]
+        print('getitem')
+        print(fname)
         with h5py.File(fname, "r") as hf:
             input = hf[self.input_key][dataslice]
             if self.forward:
