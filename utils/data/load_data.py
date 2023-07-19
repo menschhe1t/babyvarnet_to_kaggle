@@ -63,6 +63,9 @@ class SliceData(Dataset):
             print('path changed')
         else :
             a = fname
+
+        print('getitem')
+        print(fname)
         ####################################################
         with h5py.File(fname, "r") as hf:
             input = hf[self.input_key][dataslice]
