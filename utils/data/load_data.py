@@ -77,10 +77,11 @@ class SliceData(Dataset):
             with h5py.File(image_fname, "r") as hf:
                 ##################
                 input = hf[self.input_key][dataslice]
+                mask =  np.zeros((input.shape[0],input.shape[1]))
                 ################
                 target = hf[self.target_key][dataslice] #0번째 채널 이미지
                 attrs = dict(hf.attrs)
-                mask =  np.zeros((input.shape[0],input.shape[1],input.shape[2]))
+
             
         return self.transform(mask, input, target, attrs, image_fname.name , dataslice)
 #        return self.transform(mask, input, target, attrs, kspace_fname.name , dataslice)
