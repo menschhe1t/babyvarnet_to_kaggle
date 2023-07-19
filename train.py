@@ -39,7 +39,9 @@ def parse():
     parser.add_argument('--chans', type=int, default=9, help='Number of channels for cascade U-Net | 18 in original varnet') ## important hyperparameter
     parser.add_argument('--sens_chans', type=int, default=4, help='Number of channels for sensitivity map U-Net | 8 in original varnet') ## important hyperparameter
     #parser.add_argument('--input-key', type=str, default='kspace', help='Name of input key')
+    ##################
     parser.add_argument('--input-key', type=str, default='image_input', help='Name of input key')
+    ##################
     parser.add_argument('--target-key', type=str, default='image_label', help='Name of target key')
     parser.add_argument('--max-key', type=str, default='max', help='Name of max key in attributes')
     parser.add_argument('--seed', type=int, default=430, help='Fix random seed')
@@ -54,10 +56,10 @@ if __name__ == '__main__':
     if args.seed is not None:
         seed_fix(args.seed)
     
-    args.exp_dir = '../result' / args.net_name / 'checkpoints'
-    args.val_dir = '../result' / args.net_name / 'reconstructions_val'
-    args.main_dir = '../result' / args.net_name / __file__
-    args.val_loss_dir = '../result' / args.net_name
+    args.exp_dir = '/kaggle/working/result' / args.net_name / 'checkpoints'
+    args.val_dir = '/kaggle/working/result' / args.net_name / 'reconstructions_val'
+    args.main_dir = '/kaggle/working/result' / args.net_name / __file__
+    args.val_loss_dir = '/kaggle/working/result' / args.net_name
 
     args.exp_dir.mkdir(parents=True, exist_ok=True)
     args.val_dir.mkdir(parents=True, exist_ok=True)
