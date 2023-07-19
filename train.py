@@ -20,7 +20,7 @@ def parse():
     parser.add_argument('-r', '--report-interval', type=int, default=500, help='Report interval')
     parser.add_argument('-n', '--net-name', type=Path, default='test_Unet', help='Name of network')
     parser.add_argument('-t', '--data-path-train', type=Path, default='/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/', help='Directory of train data')
-    parser.add_argument('-v', '--data-path-val', type=Path, default='/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/', help='Directory of validation data')
+    parser.add_argument('-v', '--data-path-val', type=Path, default='/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/val/', help='Directory of validation data')
     parser.add_argument('--in-chans', type=int, default=1, help='Size of input channels for network')
     parser.add_argument('--out-chans', type=int, default=1, help='Size of output channels for network')
     parser.add_argument('--input-key', type=str, default='image_input', help='Name of input key')
