@@ -34,6 +34,8 @@ class SliceData(Dataset):
 
     def _get_metadata(self, fname):
         with h5py.File(fname, "r") as hf:
+            #################################
+            print(fname)
             if self.input_key in hf.keys():
                 num_slices = hf[self.input_key].shape[0]
             elif self.target_key in hf.keys():
