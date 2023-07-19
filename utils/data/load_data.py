@@ -55,8 +55,8 @@ class SliceData(Dataset):
         return num_slices
 
     def __len__(self):
-        return len(self.kspace_examples)
-
+        #return len(self.kspace_examples)
+        return len(self.image_examples)
     def __getitem__(self, i):
         if not self.forward:
             image_fname, _ = self.image_examples[i]
