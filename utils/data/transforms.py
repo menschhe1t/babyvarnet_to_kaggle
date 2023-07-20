@@ -14,21 +14,33 @@ def to_tensor(data):
     return torch.from_numpy(data)
 
 class DataTransform:
-    def __init__(self, isforward, max_key):
+    def __init__(self, isforward, max_key,mode):
         self.isforward = isforward
         self.max_key = max_key
-        #self.transform = get_train_transform
+        self.mode = mode
     def __call__(self, input, target, attrs, fname, slice):
-        input = cv2.resize(input[:,:, np.newaxis], (800,800))
+        if mode == 'train':
+            input = cv2.resize(input[:,:, np.newaxis], (800,800))
             
-        # input = to_tensor(input)
-        if not self.isforward:
-            # target = to_tensor(target)
-            target = cv2.resize(target[:,:, np.newaxis], (800,800))
-            target = torch.squeeze(torch.tensor(target))
-            maximum = attrs[self.max_key]
-        else:
-            target = -1
-            maximum = -1
-        input = torch.squeeze(torch.tensor(input))
-        return input, target, maximum, fname, slice
+            # input = to_tensor(input)
+            if not self.isforward:
+                # target = to_tensor(target)
+                target = cv2.resize(target[:,:, np.newaxis], (800,800))
+                target = torch.squeeze(torch.tensor(target))
+                maximum = attrs[self.max_key]
+            else:
+                target = -1
+                maximum = -1
+            input = torch.squeeze(torch.tensor(input))
+            return input, target, maximum, fname, slice
+        elif mode == 'valid':
+            input = to_tensor(input)
+            if not self.isforward:
+                target = to_tensor(target)
+                maximum = attrs[self.max_key]
+            else:
+                target = -1
+                maximum = -1
+   
+            return input, target, maximum, fname, slice
+            
