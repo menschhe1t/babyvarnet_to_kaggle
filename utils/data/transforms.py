@@ -1,5 +1,26 @@
 import numpy as np
 import torch
+from albumentations as A
+
+def get_train_transform():
+    return  A.Compose([
+                                A.Resize(800, 800),
+                                # A.HorizontalFlip(p=0.5),
+                                # A.ColorJitter(0.4, 0.4, 0.4, 0.4, p=0.5),
+                                # A.GaussNoise(var_limit=5. / 255., p=0.3),
+                                # A.Normalize(mean=(0.3, 0.3, 0.3), std=(0.3, 0.3, 0.3), always_apply=False, p=1.0),
+                                ToTensorV2()],        p=1.0, 
+    )
+
+def get_valid_transform():
+    return  A.Compose([
+                                A.Resize(800, 800),
+                                # A.HorizontalFlip(p=0.5),
+                                # A.ColorJitter(0.4, 0.4, 0.4, 0.4, p=0.5),
+                                # A.GaussNoise(var_limit=5. / 255., p=0.3),
+                                # A.Normalize(mean=(0.3, 0.3, 0.3), std=(0.3, 0.3, 0.3), always_apply=False, p=1.0),
+                                ToTensorV2()],        p=1.0, 
+    )
 
 def to_tensor(data):
     """
@@ -17,9 +38,12 @@ class DataTransform:
         self.isforward = isforward
         self.max_key = max_key
     def __call__(self, input, target, attrs, fname, slice):
-        input = to_tensor(input)
+
+        input = get_train_transform(input)
+        # input = to_tensor(input)
         if not self.isforward:
-            target = to_tensor(target)
+            # target = to_tensor(target)
+            target = get_train_transform(target)
             maximum = attrs[self.max_key]
         else:
             target = -1
