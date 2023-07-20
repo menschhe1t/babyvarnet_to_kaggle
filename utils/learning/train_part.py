@@ -60,7 +60,8 @@ def validate(args, model, data_loader, loss_type):
             ##############################################
             for i in range(output.shape[0]):
                 reconstructions[fnames[i]][int(slices[i])] = output[i].cpu().numpy()
-                targets[fnames[i]][int(slices[i])] = target[i].numpy()
+                #targets[fnames[i]][int(slices[i])] = target[i].numpy()
+                targets[fnames[i]][int(slices[i])] = target[i].cpu().numpy()
                 inputs[fnames[i]][int(slices[i])] = input[i].cpu().numpy()
             #######################################
             if iter % args.report_interval == 0:
