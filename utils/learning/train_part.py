@@ -50,23 +50,24 @@ def validate(args, model, data_loader):
 
     with torch.no_grad():
         for iter, data in enumerate(data_loader):
-            input, target, _, fnames, slices = data
+            input, target, maximum, fnames, slices = data
             input = input.cuda(non_blocking=True)
             output = model(input)
-
+            ###################################################
+            loss = loss_type(output, target, maximum)
+            ##############################################
             for i in range(output.shape[0]):
                 reconstructions[fnames[i]][int(slices[i])] = output[i].cpu().numpy()
                 targets[fnames[i]][int(slices[i])] = target[i].numpy()
                 inputs[fnames[i]][int(slices[i])] = input[i].cpu().numpy()
-            
+            #######################################
             if iter % args.report_interval == 0:
                 print(
-                    f'Valid Epoch = [{epoch:3d}/{args.num_epochs:3d}] '
                     f'Valid Iter = [{iter:4d}/{len(data_loader):4d}] '
                     f'Valid Loss = {loss.item():.4g} '
                     f'Time = {time.perf_counter() - start_iter:.4f}s',
                 )
-                
+            ########################################
     for fname in reconstructions:
         reconstructions[fname] = np.stack(
             [out for _, out in sorted(reconstructions[fname].items())]
