@@ -5,6 +5,9 @@ from torch.utils.data import Dataset, DataLoader
 from pathlib import Path
 from pathlib import PosixPath
 
+import albumentations as A
+from albumentations.pytorch.transforms import ToTensorV2
+
 class SliceData(Dataset):
     def __init__(self, root, transform, input_key, target_key, forward=False):
         self.transform = transform
@@ -76,6 +79,8 @@ class SliceData(Dataset):
             else:
                 target = hf[self.target_key][dataslice]
             attrs = dict(hf.attrs)
+
+        
         return self.transform(input, target, attrs, fname.name, dataslice)
 
 
