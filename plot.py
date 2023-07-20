@@ -1,8 +1,8 @@
 import h5py
 import matplotlib.pyplot as plt
 
-f = h5py.File('/kaggle/working/result/test_Unet/reconstructions_val/brain_acc4_179.h5', 'r')
-# f = h5py.File('YOUR FILE PATH', 'r')
+#f = h5py.File('/kaggle/working/result/test_Unet/reconstructions_val/brain_acc4_179.h5', 'r')
+f = h5py.File('/kaggle/working/result/test_Unet/reconstructions_leaderboard/acc8/brain_test54.h5', 'r')
 
 input = f['input']
 recon = f['reconstruction']
