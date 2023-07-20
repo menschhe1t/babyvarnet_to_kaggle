@@ -32,9 +32,9 @@ def train_epoch(args, epoch, model, data_loader, optimizer, loss_type):
 
         if iter % args.report_interval == 0:
             print(
-                f'Epoch = [{epoch:3d}/{args.num_epochs:3d}] '
-                f'Iter = [{iter:4d}/{len(data_loader):4d}] '
-                f'Loss = {loss.item():.4g} '
+                f'Train Epoch = [{epoch:3d}/{args.num_epochs:3d}] '
+                f'Train Iter = [{iter:4d}/{len(data_loader):4d}] '
+                f'Train Loss = {loss.item():.4g} '
                 f'Time = {time.perf_counter() - start_iter:.4f}s',
             )
         start_iter = time.perf_counter()
@@ -59,7 +59,15 @@ def validate(args, model, data_loader):
                 reconstructions[fnames[i]][int(slices[i])] = output[i].cpu().numpy()
                 targets[fnames[i]][int(slices[i])] = target[i].numpy()
                 inputs[fnames[i]][int(slices[i])] = input[i].cpu().numpy()
-
+            
+            if iter % args.report_interval == 0:
+                print(
+                    f'Valid Epoch = [{epoch:3d}/{args.num_epochs:3d}] '
+                    f'Valid Iter = [{iter:4d}/{len(data_loader):4d}] '
+                    f'Valid Loss = {loss.item():.4g} '
+                    f'Time = {time.perf_counter() - start_iter:.4f}s',
+                )
+                
     for fname in reconstructions:
         reconstructions[fname] = np.stack(
             [out for _, out in sorted(reconstructions[fname].items())]
