@@ -38,16 +38,17 @@ class DataTransform:
     def __init__(self, isforward, max_key):
         self.isforward = isforward
         self.max_key = max_key
+        self.transform = get_train_transform
     def __call__(self, input, target, attrs, fname, slice):
         print(input.shape)
         print(target.shape)
         input = input[:,:, np.newaxis]
-        input = train_transform(image = input)['image']
+        input = self.transform(image = input)['image']
         # input = to_tensor(input)
         if not self.isforward:
             # target = to_tensor(target)
             target = target[:,:, np.newaxis]
-            target = train_transform(image = target)['image']
+            target = self.transform(image = target)['image']
             target = torch.squeeze(target)
             maximum = attrs[self.max_key]
         else:
