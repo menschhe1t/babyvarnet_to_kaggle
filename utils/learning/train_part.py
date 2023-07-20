@@ -53,9 +53,9 @@ def validate(args,epoch, model, data_loader, loss_type):
     targets = defaultdict(dict)
     inputs = defaultdict(dict)
     start = time.perf_counter()
-
+    loop = tqdm(data_loader)
     with torch.no_grad():
-        for iter, data in enumerate(data_loader):
+        for iter, data in enumerate(loop):
             input, target, maximum, fnames, slices = data
             input = input.cuda(non_blocking=True)
             output = model(input)
