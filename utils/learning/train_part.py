@@ -52,6 +52,8 @@ def validate(args, model, data_loader, loss_type):
         for iter, data in enumerate(data_loader):
             input, target, maximum, fnames, slices = data
             input = input.cuda(non_blocking=True)
+            target = target.cuda(non_blocking=True)
+            maximum = maximum.cuda(non_blocking=True)
             output = model(input)
             ###################################################
             loss = loss_type(output, target, maximum)
