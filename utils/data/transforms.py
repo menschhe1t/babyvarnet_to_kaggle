@@ -41,9 +41,6 @@ class DataTransform:
         self.max_key = max_key
         #self.transform = get_train_transform
     def __call__(self, input, target, attrs, fname, slice):
-        print(input.shape)
-        print(target.shape)
-
         input = cv2.resize(input[:,:, np.newaxis], (800,800))
             
         # input = to_tensor(input)
