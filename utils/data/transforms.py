@@ -1,6 +1,6 @@
 import numpy as np
 import torch
-from albumentations as A
+import albumentations as A
 
 def get_train_transform():
     return  A.Compose([
