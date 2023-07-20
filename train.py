@@ -17,7 +17,7 @@ def parse():
     parser.add_argument('-b', '--batch-size', type=int, default=40, help='Batch size')
     parser.add_argument('-e', '--num-epochs', type=int, default=10, help='Number of epochs')
     parser.add_argument('-l', '--lr', type=float, default=1e-3, help='Learning rate')
-    parser.add_argument('-r', '--report-interval', type=int, default=500, help='Report interval')
+    parser.add_argument('-r', '--report-interval', type=int, default=10, help='Report interval')
     parser.add_argument('-n', '--net-name', type=Path, default='test_Unet', help='Name of network')
     parser.add_argument('-t', '--data-path-train', type=Path, default='/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/train/image/', help='Directory of train data')
     parser.add_argument('-v', '--data-path-val', type=Path, default='/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/val/image/', help='Directory of validation data')
