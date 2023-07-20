@@ -40,7 +40,7 @@ def train_epoch(args, epoch, model, data_loader, optimizer, loss_type):
             #     f'Time = {time.perf_counter() - start_iter:.4f}s',
             # )
             loop.set_description(f"Train Epoch [{epoch:3d}/{args.num_epochs:3d}]")
-            loop.set_postfix(loss=loss.item():.4g) 
+            loop.set_postfix(loss=loss.item()) 
         
         start_iter = time.perf_counter()
     total_loss = total_loss / len_loader
@@ -76,7 +76,7 @@ def validate(args,epoch, model, data_loader, loss_type):
                 #     f'Valid Loss = {loss.item():.4g} '
                 # )
                 loop.set_description(f"Valid Epoch [{epoch:3d}/{args.num_epochs:3d}]")
-                loop.set_postfix(loss=loss.item():.4g) 
+                loop.set_postfix(loss=loss.item()) 
             ########################################
     for fname in reconstructions:
         reconstructions[fname] = np.stack(
