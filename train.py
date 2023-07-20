@@ -38,10 +38,10 @@ if __name__ == '__main__':
     if args.seed is not None:
         seed_fix(args.seed)
 
-    args.exp_dir = '/kaggle/working/result/' / args.net_name / 'checkpoints'
-    args.val_dir = '/kaggle/working/result/' / args.net_name / 'reconstructions_val'
-    args.main_dir = '/kaggle/working/result/' / args.net_name / __file__
-    args.val_loss_dir = '/kaggle/working/result/' / args.net_name
+    args.exp_dir = '/kaggle/working/result' / args.net_name / 'checkpoints'
+    args.val_dir = '/kaggle/working/result' / args.net_name / 'reconstructions_val'
+    args.main_dir = '/kaggle/working/result' / args.net_name / __file__
+    args.val_loss_dir = '/kaggle/working/result' / args.net_name
 
 
     args.exp_dir.mkdir(parents=True, exist_ok=True)
