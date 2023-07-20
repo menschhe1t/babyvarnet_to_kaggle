@@ -9,6 +9,27 @@ from utils.data.load_data import create_data_loaders
 from utils.common.utils import save_reconstructions, ssim_loss
 from utils.common.loss_function import SSIMLoss
 from utils.model.unet import Unet
+from tqdm import tqdm
+
+class Averager:
+    def __init__(self):
+        self.current_value = 0.0
+        self.iter = 0.0
+        
+    def send(self, value):
+        self.current_value += value
+        self.iter += 1
+        
+    def value(self):
+        if self.iter == 0:
+            return 0
+        else:
+            return 1.0 * self.current_value / self.iter
+    
+    def reset(self):
+        self.current_value = 0.0
+        self.iter = 0.0
+
 
 def train_epoch(args, epoch, model, data_loader, optimizer, loss_type):
     model.train()
