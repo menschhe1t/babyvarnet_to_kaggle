@@ -68,7 +68,6 @@ def validate(args, model, data_loader, loss_type):
                 print(
                     f'Valid Iter = [{iter:4d}/{len(data_loader):4d}] '
                     f'Valid Loss = {loss.item():.4g} '
-                    f'Time = {time.perf_counter() - start_iter:.4f}s',
                 )
             ########################################
     for fname in reconstructions:
