@@ -5,9 +5,6 @@ from torch.utils.data import Dataset, DataLoader
 from pathlib import Path
 from pathlib import PosixPath
 
-import albumentations as A
-from albumentations.pytorch.transforms import ToTensorV2
-
 class SliceData(Dataset):
     def __init__(self, root, transform, input_key, target_key, forward=False):
         self.transform = transform
@@ -15,7 +12,7 @@ class SliceData(Dataset):
         self.target_key = target_key
         self.forward = forward
         self.examples = []
-
+        
         files = list(Path(root).iterdir())
         for fname in sorted(files):
             num_slices = self._get_metadata(fname)
@@ -46,7 +43,10 @@ class SliceData(Dataset):
         with h5py.File(fname, "r") as hf:
             num_slices = hf[self.input_key].shape[0]
         return num_slices
-
+    #######
+    def get_transform(self):
+        return A.resize(800,800)
+    #######
     def __len__(self):
         return len(self.examples)
 
@@ -71,6 +71,7 @@ class SliceData(Dataset):
         
         #print('getitem')
         #print(fname)
+        
         ####################################################
         with h5py.File(fname, "r") as hf:
             input = hf[self.input_key][dataslice]
@@ -80,7 +81,6 @@ class SliceData(Dataset):
                 target = hf[self.target_key][dataslice]
             attrs = dict(hf.attrs)
 
-        
         return self.transform(input, target, attrs, fname.name, dataslice)
 
 
@@ -103,5 +103,6 @@ def create_data_loaders(data_path, args, shuffle=False, isforward=False):
         dataset=data_storage,
         batch_size=args.batch_size,
         shuffle=shuffle,
+        num_workers=2
     )
     return data_loader
