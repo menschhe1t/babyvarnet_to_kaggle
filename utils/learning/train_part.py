@@ -11,24 +11,6 @@ from utils.common.loss_function import SSIMLoss
 from utils.model.unet import Unet
 from tqdm import tqdm
 
-class Averager:
-    def __init__(self):
-        self.current_value = 0.0
-        self.iter = 0.0
-        
-    def send(self, value):
-        self.current_value += value
-        self.iter += 1
-        
-    def value(self):
-        if self.iter == 0:
-            return 0
-        else:
-            return 1.0 * self.current_value / self.iter
-    
-    def reset(self):
-        self.current_value = 0.0
-        self.iter = 0.0
 
 
 def train_epoch(args, epoch, model, data_loader, optimizer, loss_type):
@@ -36,8 +18,8 @@ def train_epoch(args, epoch, model, data_loader, optimizer, loss_type):
     start_epoch = start_iter = time.perf_counter()
     len_loader = len(data_loader)
     total_loss = 0.
-
-    for iter, data in enumerate(data_loader):
+    loop = tqdm(data_loader)
+    for iter, data in enumerate(loop):
         input, target, maximum, _, _ = data
         input = input.cuda(non_blocking=True)
         target = target.cuda(non_blocking=True)
@@ -51,18 +33,21 @@ def train_epoch(args, epoch, model, data_loader, optimizer, loss_type):
         total_loss += loss.item()
 
         if iter % args.report_interval == 0:
-            print(
-                f'Train Epoch = [{epoch:3d}/{args.num_epochs:3d}] '
-                f'Train Iter = [{iter:4d}/{len(data_loader):4d}] '
-                f'Train Loss = {loss.item():.4g} '
-                f'Time = {time.perf_counter() - start_iter:.4f}s',
-            )
+            # print(
+            #     f'Train Epoch = [{epoch:3d}/{args.num_epochs:3d}] '
+            #     f'Train Iter = [{iter:4d}/{len(data_loader):4d}] '
+            #     f'Train Loss = {loss.item():.4g} '
+            #     f'Time = {time.perf_counter() - start_iter:.4f}s',
+            # )
+            loop.set_description(f"Train Epoch [{epoch:3d}/{args.num_epochs:3d}]")
+            loop.set_postfix(loss=loss.item():.4g) 
+        
         start_iter = time.perf_counter()
     total_loss = total_loss / len_loader
     return total_loss, time.perf_counter() - start_epoch
 
 
-def validate(args, model, data_loader, loss_type):
+def validate(args,epoch, model, data_loader, loss_type):
     model.eval()
     reconstructions = defaultdict(dict)
     targets = defaultdict(dict)
@@ -86,10 +71,12 @@ def validate(args, model, data_loader, loss_type):
                 inputs[fnames[i]][int(slices[i])] = input[i].cpu().numpy()
             #######################################
             if iter % args.report_interval == 0:
-                print(
-                    f'Valid Iter = [{iter:4d}/{len(data_loader):4d}] '
-                    f'Valid Loss = {loss.item():.4g} '
-                )
+                # print(
+                #     f'Valid Iter = [{iter:4d}/{len(data_loader):4d}] '
+                #     f'Valid Loss = {loss.item():.4g} '
+                # )
+                loop.set_description(f"Valid Epoch [{epoch:3d}/{args.num_epochs:3d}]")
+                loop.set_postfix(loss=loss.item():.4g) 
             ########################################
     for fname in reconstructions:
         reconstructions[fname] = np.stack(
@@ -147,7 +134,7 @@ def train(args):
         print(f'Epoch #{epoch:2d} ............... {args.net_name} ...............')
         
         train_loss, train_time = train_epoch(args, epoch, model, train_loader, optimizer, loss_type)
-        val_loss, num_subjects, reconstructions, targets, inputs, val_time = validate(args, model, val_loader, loss_type)
+        val_loss, num_subjects, reconstructions, targets, inputs, val_time = validate(args, epoch, model, val_loader, loss_type)
 
         val_loss_log = np.append(val_loss_log, np.array([[epoch, val_loss]]), axis=0)
         file_path = args.val_loss_dir / "val_loss_log"
