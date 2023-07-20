@@ -11,6 +11,28 @@ from utils.common.loss_function import SSIMLoss
 from utils.model.unet import Unet
 from tqdm import tqdm
 
+import albumentations as A
+from albumentations.pytorch import ToTensorV2
+
+def get_train_transform():
+    return  A.Compose([
+                                A.Resize(800, 800),
+                                # A.HorizontalFlip(p=0.5),
+                                # A.ColorJitter(0.4, 0.4, 0.4, 0.4, p=0.5),
+                                # A.GaussNoise(var_limit=5. / 255., p=0.3),
+                                # A.Normalize(mean=(0.3, 0.3, 0.3), std=(0.3, 0.3, 0.3), always_apply=False, p=1.0),
+                                ToTensorV2()],        p=1.0, 
+    )
+
+def get_valid_transform():
+    return  A.Compose([
+                                #A.Resize(800, 800),
+                                # A.HorizontalFlip(p=0.5),
+                                # A.ColorJitter(0.4, 0.4, 0.4, 0.4, p=0.5),
+                                # A.GaussNoise(var_limit=5. / 255., p=0.3),
+                                # A.Normalize(mean=(0.3, 0.3, 0.3), std=(0.3, 0.3, 0.3), always_apply=False, p=1.0),
+                                ToTensorV2()],        p=1.0, 
+    )
 
 
 def train_epoch(args, epoch, model, data_loader, optimizer, loss_type):
@@ -45,6 +67,7 @@ def train_epoch(args, epoch, model, data_loader, optimizer, loss_type):
         start_iter = time.perf_counter()
     total_loss = total_loss / len_loader
     return total_loss, time.perf_counter() - start_epoch
+
 
 
 def validate(args,epoch, model, data_loader, loss_type):
@@ -124,10 +147,12 @@ def train(args):
 
     best_val_loss = 1.
     start_epoch = 0
-
     
-    train_loader = create_data_loaders(data_path = args.data_path_train, args = args, shuffle=True)
-    val_loader = create_data_loaders(data_path = args.data_path_val, args = args)
+    # train_transform = get_train_transform()
+    # valid_transform = get_valid_transform()
+    
+    train_loader = create_data_loaders(data_path = args.data_path_train,mode = 'train' ,args = args, shuffle=True)
+    val_loader = create_data_loaders(data_path = args.data_path_val,mode = 'valid' ,args = args)
 
     val_loss_log = np.empty((0, 2))
     for epoch in range(start_epoch, args.num_epochs):
