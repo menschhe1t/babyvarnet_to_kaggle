@@ -155,6 +155,7 @@ def train(args):
     val_loader = create_data_loaders(data_path = args.data_path_val,mode = 'valid' ,args = args)
 
     val_loss_log = np.empty((0, 2))
+    
     for epoch in range(start_epoch, args.num_epochs):
         print(f'Epoch #{epoch:2d} ............... {args.net_name} ...............')
         
@@ -167,11 +168,10 @@ def train(args):
         print(f"loss file saved! {file_path}")
 
         val_loss = val_loss / num_subjects
-
-        is_new_best = val_loss < best_val_loss
+        is_new_best = val_loss < best_val_loss # true 일때 best epoch update
         best_val_loss = min(best_val_loss, val_loss)
-
-        save_model(args, args.exp_dir, epoch + 1, model, optimizer, best_val_loss, is_new_best)
+        if is_new_best == True:
+            save_model(args, args.exp_dir, epoch + 1, model, optimizer, best_val_loss, is_new_best)
         print(
             f'Epoch = [{epoch:4d}/{args.num_epochs:4d}] TrainLoss = {train_loss:.4g} '
             f'ValLoss = {val_loss:.4g} TrainTime = {train_time:.4f}s ValTime = {val_time:.4f}s',
