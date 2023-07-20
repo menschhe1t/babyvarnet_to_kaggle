@@ -19,7 +19,7 @@ class DataTransform:
         self.max_key = max_key
         self.mode = mode
     def __call__(self, input, target, attrs, fname, slice):
-        if mode == 'train':
+        if self.mode == 'train':
             input = cv2.resize(input[:,:, np.newaxis], (800,800))
             
             # input = to_tensor(input)
@@ -33,7 +33,7 @@ class DataTransform:
                 maximum = -1
             input = torch.squeeze(torch.tensor(input))
             return input, target, maximum, fname, slice
-        elif mode == 'valid':
+        elif self.mode == 'valid':
             input = to_tensor(input)
             if not self.isforward:
                 target = to_tensor(target)
