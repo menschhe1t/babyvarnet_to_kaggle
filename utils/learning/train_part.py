@@ -41,7 +41,7 @@ def train_epoch(args, epoch, model, data_loader, optimizer, loss_type):
     return total_loss, time.perf_counter() - start_epoch
 
 
-def validate(args, model, data_loader):
+def validate(args, model, data_loader, loss_type):
     model.eval()
     reconstructions = defaultdict(dict)
     targets = defaultdict(dict)
@@ -124,7 +124,7 @@ def train(args):
         print(f'Epoch #{epoch:2d} ............... {args.net_name} ...............')
         
         train_loss, train_time = train_epoch(args, epoch, model, train_loader, optimizer, loss_type)
-        val_loss, num_subjects, reconstructions, targets, inputs, val_time = validate(args, model, val_loader)
+        val_loss, num_subjects, reconstructions, targets, inputs, val_time = validate(args, model, val_loader, loss_type)
 
         val_loss_log = np.append(val_loss_log, np.array([[epoch, val_loss]]), axis=0)
         file_path = args.val_loss_dir / "val_loss_log"
