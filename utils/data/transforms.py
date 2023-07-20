@@ -38,7 +38,7 @@ class DataTransform:
         self.isforward = isforward
         self.max_key = max_key
     def __call__(self, input, target, attrs, fname, slice):
-        train_transform = get_train_transform
+        train_transform = get_train_transform()
         input = train_transform(image = input)['image']
         # input = to_tensor(input)
         if not self.isforward:
