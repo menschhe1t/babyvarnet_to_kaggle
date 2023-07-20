@@ -14,7 +14,7 @@ def parse():
     parser = argparse.ArgumentParser(description='Train Unet on FastMRI challenge Images',
                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-g', '--GPU-NUM', type=int, default=0, help='GPU number to allocate')
-    parser.add_argument('-b', '--batch-size', type=int, default=100, help='Batch size')
+    parser.add_argument('-b', '--batch-size', type=int, default=80, help='Batch size')
     parser.add_argument('-e', '--num-epochs', type=int, default=20, help='Number of epochs')
     parser.add_argument('-l', '--lr', type=float, default=5e-4, help='Learning rate')
     parser.add_argument('-r', '--report-interval', type=int, default=5, help='Report interval')
