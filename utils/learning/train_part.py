@@ -24,6 +24,7 @@ def train_epoch(args, epoch, model, data_loader, optimizer, loss_type):
 
         output = model(input)
         loss = loss_type(output, target, maximum)
+        print(loss)
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
