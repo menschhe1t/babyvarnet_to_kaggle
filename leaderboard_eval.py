@@ -103,12 +103,12 @@ if __name__ == '__main__':
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     
     parser.add_argument('-g', '--GPU_NUM', type=int, default=0)
-    parser.add_argument('-lp', '--path_leaderboard_data', type=Path, default='/Data/leaderboard/')
+    parser.add_argument('-lp', '--path_leaderboard_data', type=Path, default='/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/leaderboard/')
     
     """
     Modify Path Below To Test Your Results
     """
-    parser.add_argument('-yp', '--path_your_data', type=Path, default='../result/test_Unet/reconstructions_leaderboard/')
+    parser.add_argument('-yp', '--path_your_data', type=Path, default='/kaggle/working/result/test_Unet/reconstructions_leaderboard/')
     parser.add_argument('-key', '--output_key', type=str, default='reconstruction')
     
     args = parser.parse_args()
