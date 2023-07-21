@@ -19,3 +19,6 @@ plt.subplot(1, 3, 3)
 plt.imshow(target[1, :, :])
 plt.title('target')
 plt.savefig('result.png', dpi=300)
+
+##
+plt.imshow()
