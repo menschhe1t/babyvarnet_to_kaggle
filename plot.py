@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 
 f = h5py.File('/kaggle/working/result/test_Unet/reconstructions_val/brain_acc4_179.h5', 'r')
 
-print(f)
 input = f['input']
 recon = f['reconstruction']
 target = f['target']
