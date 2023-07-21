@@ -36,14 +36,18 @@ class DataTransform:
             return input, target, maximum, fname, slice
             
         elif self.mode == 'valid':
-            input = to_tensor(input)
+            input = cv2.resize(input[:,:, np.newaxis], (img_size,img_size))
+            # input = to_tensor(input)
             if not self.isforward:
-                target = to_tensor(target)
+                # target = to_tensor(target)
+                target = cv2.resize(target[:,:, np.newaxis], (img_size,img_size))
+                target = torch.squeeze(torch.tensor(target))
                 maximum = attrs[self.max_key]
             else:
                 target = -1
                 maximum = -1
-            return input, target, maximum, fname, slice     
+            input = torch.squeeze(torch.tensor(input))
+            return input, target, maximum, fname, slice
         
         elif self.mode == 'test':
             input = cv2.resize(input[:,:, np.newaxis], (img_size,img_size))
