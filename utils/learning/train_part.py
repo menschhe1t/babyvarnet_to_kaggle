@@ -158,7 +158,7 @@ def train(args):
     val_loss_log = np.empty((0, 2))
     
     for epoch in range(start_epoch, args.num_epochs):
-        print(f'Epoch #{epoch:2d} ............... {args.net_name} ...............')
+        print(f'Epoch #{(epoch+1):2d} ............... {args.net_name} ...............')
         
         train_loss, train_time = train_epoch(args, epoch, model, train_loader, optimizer, loss_type)
         val_loss, num_subjects, reconstructions, targets, inputs, val_time = validate(args, epoch, model, val_loader, loss_type)
@@ -174,7 +174,7 @@ def train(args):
         if is_new_best == True:
             save_model(args, args.exp_dir, epoch + 1, model, optimizer, best_val_loss, is_new_best)
         print(
-            f'Epoch = [{epoch:4d}/{args.num_epochs:4d}] TrainLoss = {train_loss:.4g} '
+            f'Epoch = [{(epoch+1):4d}/{args.num_epochs:4d}] TrainLoss = {train_loss:.4g} '
             f'ValLoss = {val_loss:.4g} TrainTime = {train_time:.4f}s ValTime = {val_time:.4f}s',
         )
 
