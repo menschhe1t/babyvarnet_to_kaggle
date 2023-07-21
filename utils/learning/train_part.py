@@ -128,10 +128,11 @@ def save_model(args, exp_dir, epoch, model, optimizer, best_val_loss, is_new_bes
             'best_val_loss': best_val_loss,
             'exp_dir': exp_dir
         },
-        f=exp_dir / 'model.pt'
+        # f=exp_dir / 'model.pt'
+        f=exp_dir / 'best_model.pt'
     )
-    if is_new_best:
-        shutil.copyfile(exp_dir / 'model.pt', exp_dir / 'best_model.pt')
+    # if is_new_best:
+    #     shutil.copyfile(exp_dir / 'model.pt', exp_dir / 'best_model.pt')
 
 
         
