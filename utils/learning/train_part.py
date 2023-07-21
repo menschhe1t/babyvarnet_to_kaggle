@@ -34,6 +34,14 @@ from tqdm import tqdm
 #                                 ToTensorV2()],        p=1.0, 
 #     )
 
+def get_lr_scheduler(mode, optimizer, T):
+    if mode == 'StepLR':
+        return torch.optim.lr_scheduler.StepLR(optimizer, step_size=T, gamma=0.5)
+    elif mode == 'CosineAnnealing':
+        return torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=T, eta_min=0)
+    elif mode == 'CosineAnnealingWarmRestarts':
+        return torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, T_0=T, T_mult=2, eta_min=0)
+
 
 def train_epoch(args, epoch, model, data_loader, optimizer, loss_type):
     model.train()
@@ -135,7 +143,9 @@ def train(args):
     model.to(device=device)
     loss_type = SSIMLoss().to(device=device)
     optimizer = torch.optim.Adam(model.parameters(), args.lr)
-
+    
+    lr_scheduler = get_lr_scheduler('CosineAnnealingWarmRestarts', optimizer, 5)
+    
     best_val_loss = 1.
     start_epoch = 0
     
@@ -175,3 +185,4 @@ def train(args):
             print(
                 f'ForwardTime = {time.perf_counter() - start:.4f}s',
             )
+        lr_scheduler.step()
