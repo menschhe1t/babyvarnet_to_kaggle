@@ -11,28 +11,28 @@ from utils.common.loss_function import SSIMLoss
 from utils.model.unet import Unet
 from tqdm import tqdm
 
-import albumentations as A
-from albumentations.pytorch import ToTensorV2
+# import albumentations as A
+# from albumentations.pytorch import ToTensorV2
 
-def get_train_transform():
-    return  A.Compose([
-                                A.Resize(800, 800),
-                                # A.HorizontalFlip(p=0.5),
-                                # A.ColorJitter(0.4, 0.4, 0.4, 0.4, p=0.5),
-                                # A.GaussNoise(var_limit=5. / 255., p=0.3),
-                                # A.Normalize(mean=(0.3, 0.3, 0.3), std=(0.3, 0.3, 0.3), always_apply=False, p=1.0),
-                                ToTensorV2()],        p=1.0, 
-    )
+# def get_train_transform():
+#     return  A.Compose([
+#                                 A.Resize(800, 800),
+#                                 # A.HorizontalFlip(p=0.5),
+#                                 # A.ColorJitter(0.4, 0.4, 0.4, 0.4, p=0.5),
+#                                 # A.GaussNoise(var_limit=5. / 255., p=0.3),
+#                                 # A.Normalize(mean=(0.3, 0.3, 0.3), std=(0.3, 0.3, 0.3), always_apply=False, p=1.0),
+#                                 ToTensorV2()],        p=1.0, 
+#     )
 
-def get_valid_transform():
-    return  A.Compose([
-                                #A.Resize(800, 800),
-                                # A.HorizontalFlip(p=0.5),
-                                # A.ColorJitter(0.4, 0.4, 0.4, 0.4, p=0.5),
-                                # A.GaussNoise(var_limit=5. / 255., p=0.3),
-                                # A.Normalize(mean=(0.3, 0.3, 0.3), std=(0.3, 0.3, 0.3), always_apply=False, p=1.0),
-                                ToTensorV2()],        p=1.0, 
-    )
+# def get_valid_transform():
+#     return  A.Compose([
+#                                 #A.Resize(800, 800),
+#                                 # A.HorizontalFlip(p=0.5),
+#                                 # A.ColorJitter(0.4, 0.4, 0.4, 0.4, p=0.5),
+#                                 # A.GaussNoise(var_limit=5. / 255., p=0.3),
+#                                 # A.Normalize(mean=(0.3, 0.3, 0.3), std=(0.3, 0.3, 0.3), always_apply=False, p=1.0),
+#                                 ToTensorV2()],        p=1.0, 
+#     )
 
 
 def train_epoch(args, epoch, model, data_loader, optimizer, loss_type):
