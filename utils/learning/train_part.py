@@ -76,21 +76,21 @@ def validate(args,epoch, model, data_loader, loss_type):
             input, target, maximum, fnames, slices = data
             input = input.cuda(non_blocking=True)
             output = model(input)
-            ###################################################
+         
             target = target.cuda(non_blocking=True)
             maximum = maximum.cuda(non_blocking=True)
             loss = loss_type(output, target, maximum)
-            ##############################################
+            
             for i in range(output.shape[0]):
                 reconstructions[fnames[i]][int(slices[i])] = output[i].cpu().numpy()
                 #targets[fnames[i]][int(slices[i])] = target[i].numpy()
                 targets[fnames[i]][int(slices[i])] = target[i].cpu().numpy()
                 inputs[fnames[i]][int(slices[i])] = input[i].cpu().numpy()
-            #######################################
+            
             if iter % args.report_interval == 0:
                 loop.set_description(f"Valid Epoch [{epoch:3d}/{args.num_epochs:3d}]")
                 loop.set_postfix(loss=loss.item()) 
-            ########################################
+            
     for fname in reconstructions:
         reconstructions[fname] = np.stack(
             [out for _, out in sorted(reconstructions[fname].items())]
@@ -148,7 +148,7 @@ def train(args):
     val_loss_log = np.empty((0, 2))
     
     for epoch in range(start_epoch, args.num_epochs):
-        print(f'Epoch #{(epoch+1):2d} ............... {args.net_name} ...............')
+        # print(f'Epoch #{(epoch+1):2d} ............... {args.net_name} ...............')
         
         train_loss, train_time = train_epoch(args, epoch, model, train_loader, optimizer, loss_type)
         val_loss, num_subjects, reconstructions, targets, inputs, val_time = validate(args, epoch, model, val_loader, loss_type)
