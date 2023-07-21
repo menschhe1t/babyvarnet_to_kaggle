@@ -55,12 +55,6 @@ def train_epoch(args, epoch, model, data_loader, optimizer, loss_type):
         total_loss += loss.item()
 
         if iter % args.report_interval == 0:
-            # print(
-            #     f'Train Epoch = [{epoch:3d}/{args.num_epochs:3d}] '
-            #     f'Train Iter = [{iter:4d}/{len(data_loader):4d}] '
-            #     f'Train Loss = {loss.item():.4g} '
-            #     f'Time = {time.perf_counter() - start_iter:.4f}s',
-            # )
             loop.set_description(f"Train Epoch [{epoch:3d}/{args.num_epochs:3d}]")
             loop.set_postfix(loss=loss.item()) 
         
@@ -94,10 +88,6 @@ def validate(args,epoch, model, data_loader, loss_type):
                 inputs[fnames[i]][int(slices[i])] = input[i].cpu().numpy()
             #######################################
             if iter % args.report_interval == 0:
-                # print(
-                #     f'Valid Iter = [{iter:4d}/{len(data_loader):4d}] '
-                #     f'Valid Loss = {loss.item():.4g} '
-                # )
                 loop.set_description(f"Valid Epoch [{epoch:3d}/{args.num_epochs:3d}]")
                 loop.set_postfix(loss=loss.item()) 
             ########################################
@@ -129,7 +119,7 @@ def save_model(args, exp_dir, epoch, model, optimizer, best_val_loss, is_new_bes
             'exp_dir': exp_dir
         },
         # f=exp_dir / 'model.pt'
-        f=exp_dir / f'epoch{epoch}_bestvalloss{best_val_loss}_best_model.pt'
+        f=exp_dir / 'best_model.pt'
     )
     # if is_new_best:
     #     shutil.copyfile(exp_dir / 'model.pt', exp_dir / 'best_model.pt')
