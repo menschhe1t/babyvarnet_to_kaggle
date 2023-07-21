@@ -21,4 +21,4 @@ plt.title('target')
 plt.savefig('result.png', dpi=300)
 
 ##
-plt.imshow()
+plt.show()
