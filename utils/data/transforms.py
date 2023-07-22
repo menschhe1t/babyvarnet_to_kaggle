@@ -19,7 +19,7 @@ class DataTransform:
         self.max_key = max_key
         self.mode = mode
     def __call__(self, input, target, attrs, fname, slice):
-        img_size = 1200
+        img_size = 400
         if self.mode == 'train':
             input = cv2.resize(input[:,:, np.newaxis], (img_size,img_size))
             if not self.isforward:
