@@ -177,7 +177,8 @@ def train(args):
         train_loss2, train_time2 = train_epoch(args, epoch, model, grappa_train_loader, optimizer, loss_type, data_type = 'grappa')
         val_loss1, num_subjects1, reconstructions1, targets1, inputs1, val_time1 = validate(args, epoch, model, input_val_loader, loss_type, data_type = 'input')
         val_loss2, num_subjects2, reconstructions2, targets2, inputs2, val_time2 = validate(args, epoch, model, grappa_val_loader, loss_type, data_type = 'grappa')
-        
+
+        train_loss = train_loss1 + train_loss2
         val_loss = val_loss1 + val_loss2
         train_time = train_time1 + train_time2
         val_time = val_time1 + val_time2
