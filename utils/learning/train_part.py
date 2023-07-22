@@ -164,24 +164,35 @@ def train(args):
     # train_transform = get_train_transform()
     # valid_transform = get_valid_transform()
     
-    train_loader = create_data_loaders(data_path = args.data_path_train,mode = 'train' ,args = args, shuffle=True)
-    val_loader = create_data_loaders(data_path = args.data_path_val,mode = 'valid' ,args = args)
+    input_train_loader, grappa_train_loader = create_data_loaders(data_path = args.data_path_train,mode = 'train' ,args = args, shuffle=True)
+    input_val_loader, grappa_train_loader = create_data_loaders(data_path = args.data_path_val,mode = 'valid' ,args = args)
 
     val_loss_log = np.empty((0, 2))
     
     for epoch in range(start_epoch, args.num_epochs):
         # print(f'Epoch #{(epoch+1):2d} ............... {args.net_name} ...............')
-        
-        train_loss, train_time = train_epoch(args, epoch, model, train_loader, optimizer, loss_type)
-        val_loss, num_subjects, reconstructions, targets, inputs, val_time = validate(args, epoch, model, val_loader, loss_type)
+        print('input_train')
+        train_loss1, train_time1 = train_epoch(args, epoch, model, input_train_loader, optimizer, loss_type)
+        print('grappa_train')
+        train_loss2, train_time2 = train_epoch(args, epoch, model, grappa_train_loader, optimizer, loss_type)
+        print('input_val')
+        val_loss1, num_subjects1, reconstructions1, targets1, inputs1, val_time1 = validate(args, epoch, model, input_val_loader, loss_type)
+        print('grappa_val')
+        val_loss2, num_subjects2, reconstructions2, targets2, inputs2, val_time2 = validate(args, epoch, model, grappa_val_loader, loss_type)
+
+        val_loss = val_loss1 + val_loss2
+        reconstructions = np.concatenate((reconstructions1, reconstructions2), axis=0)
+        targets = np.concatenate((targets1, targets2), axis=0)
+        inputs = np.concatenate((inputs1, inputs2), axis=0)
         
         val_loss_log = np.append(val_loss_log, np.array([[epoch, val_loss]]), axis=0)
         file_path = args.val_loss_dir / "val_loss_log"
         np.save(file_path, val_loss_log)
         print(f"loss file saved! {file_path}")
 
-        val_loss = val_loss / num_subjects
-        is_new_best = val_loss < best_val_loss # true 일때 best epoch update
+        
+        val_loss = val_loss / (num_subjects1 + num_subjects2)
+        is_new_best = val_loss < best_val_loss 
         best_val_loss = min(best_val_loss, val_loss)
         if is_new_best == True:
             save_model(args, args.exp_dir, epoch + 1, model, optimizer, best_val_loss, is_new_best)
