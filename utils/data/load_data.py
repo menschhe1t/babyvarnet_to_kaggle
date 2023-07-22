@@ -66,9 +66,9 @@ class SliceData(Dataset):
         fname = a
         
         with h5py.File(fname, "r") as hf:
-            if data_type == 'grappa':
+            if self.data_type == 'grappa':
                 input = hf[self.grappa_key][dataslice]
-            elif data_type == 'input':
+            elif self.data_type == 'input':
                 input = hf[self.input_key][dataslice]
             if self.forward:
                 target = -1
