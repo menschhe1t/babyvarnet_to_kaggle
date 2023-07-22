@@ -196,6 +196,9 @@ def train(args):
         val_loss = val_loss / (num_subjects1 + num_subjects2)
         is_new_best = val_loss < best_val_loss 
         best_val_loss = min(best_val_loss, val_loss)
+
+        lr_scheduler.step()
+        
         if is_new_best == True:
             save_model(args, args.exp_dir, epoch + 1, model, optimizer, best_val_loss, is_new_best)
         print(
@@ -210,4 +213,4 @@ def train(args):
             print(
                 f'ForwardTime = {time.perf_counter() - start:.4f}s',
             )
-        lr_scheduler.step()
+        
