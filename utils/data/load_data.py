@@ -72,8 +72,9 @@ class SliceData(Dataset):
             else:
                 target = hf[self.target_key][dataslice]
             attrs = dict(hf.attrs)
-
+            
         return self.transform(input, target, attrs, fname.name, dataslice), self.transform(grappa, target, attrs, fname.name, dataslice)
+
 
 
 def create_data_loaders(data_path, mode, args, shuffle=False, isforward=False):
@@ -93,18 +94,17 @@ def create_data_loaders(data_path, mode, args, shuffle=False, isforward=False):
     )
 
     input_data_loader = DataLoader(
-        dataset=data_storage,
+        dataset=input_data_storage,
         batch_size=args.batch_size,
         shuffle=shuffle,
         num_workers=args.num_workers
     )
-
+  
     grappa_data_loader = DataLoader(
-        dataset=data_storage,
+        dataset=grappa_data_storage,
         batch_size=args.batch_size,
         shuffle=shuffle,
         num_workers=args.num_workers
     )
-
     
     return input_data_loader, grappa_data_loader
