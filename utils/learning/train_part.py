@@ -3,6 +3,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import time
+import cv2
 
 from collections import defaultdict
 from utils.data.load_data import create_data_loaders
