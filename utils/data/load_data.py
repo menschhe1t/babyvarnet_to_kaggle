@@ -40,8 +40,8 @@ class SliceData(Dataset):
             num_slices = hf[self.input_key].shape[0]
         return num_slices
         
-    def get_transform(self):
-        return A.resize(800,800)
+    # def get_transform(self):
+    #     return A.resize(800,800)
 
     def __len__(self):
         return len(self.examples)
