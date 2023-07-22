@@ -163,6 +163,10 @@ def train(args):
         train_loss, train_time = train_epoch(args, epoch, model, train_loader, optimizer, loss_type)
         val_loss, num_subjects, reconstructions, targets, inputs, val_time = validate(args, epoch, model, val_loader, loss_type)
 
+        img_size = 384
+        print(inputs.shape)
+        inputs = cv2.resize(inputs, (img_size,img_size))
+        
         val_loss_log = np.append(val_loss_log, np.array([[epoch, val_loss]]), axis=0)
         file_path = args.val_loss_dir / "val_loss_log"
         np.save(file_path, val_loss_log)
