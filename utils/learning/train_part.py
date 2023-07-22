@@ -99,7 +99,11 @@ def validate(args,epoch, model, data_loader, loss_type):
             if iter % args.report_interval == 0:
                 loop.set_description(f"Valid Epoch [{epoch:3d}/{args.num_epochs:3d}]")
                 loop.set_postfix(loss=loss.item()) 
-        
+            img_size = 384
+            inputs = np.squeeze(cv2.resize(inputs[:,:, np.newaxis], (img_size,img_size)))
+            targets = np.squeeze(cv2.resize(targets[:,:, np.newaxis], (img_size,img_size)))
+            reconstructions = np.squeeze(cv2.resize(reconstructions[:,:, np.newaxis], (img_size,img_size)))
+
     for fname in reconstructions:
         reconstructions[fname] = np.stack(
             [out for _, out in sorted(reconstructions[fname].items())]
@@ -115,10 +119,6 @@ def validate(args,epoch, model, data_loader, loss_type):
         metric_loss = sum([ssim_loss(targets[fname], reconstructions[fname]) for fname in reconstructions])
     num_subjects = len(reconstructions)
 
-    img_size = 384
-    inputs = np.transpose(cv2.resize(np.transpose(inputs,(1,2,0)), (img_size,img_size)), (2,0,1))
-    targets = np.transpose(cv2.resize(np.transpose(targets,(1,2,0)), (img_size,img_size)),(2,0,1))
-    reconstructions = np.transpose(cv2.resize(np.transpose(reconstructions,(1,2,0)), (img_size,img_size)), (2,0,1))
     
     return metric_loss, num_subjects, reconstructions, targets, inputs, time.perf_counter() - start
 
