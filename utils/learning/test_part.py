@@ -1,5 +1,6 @@
 import numpy as np
 import torch
+import cv2
 
 from collections import defaultdict
 from utils.common.utils import save_reconstructions
@@ -46,4 +47,8 @@ def forward(args):
     
     forward_loader = create_data_loaders(data_path = args.data_path, mode='test', args = args, isforward = True)
     reconstructions, inputs = test(args, model, forward_loader)
+    
+    reconstructions = cv2.resize(np.transpose(reconstructions, (1,2,0)) , (384,384))
+    inputs = cv2.resize(np.transpose(inputs, (1,2,0)) , (384,384))
+    
     save_reconstructions(reconstructions, args.forward_dir, inputs=inputs)
