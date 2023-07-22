@@ -42,12 +42,14 @@ if __name__ == '__main__':
         seed_fix(args.seed)
 
     args.exp_dir = '/kaggle/working/result' / args.net_name / 'checkpoints'
-    args.val_dir = '/kaggle/working/result' / args.net_name / 'reconstructions_val'
+    args.val_dir1 = '/kaggle/working/result' / args.net_name / 'reconstructions_val' / 'input'
+    args.val_dir2 = '/kaggle/working/result' / args.net_name / 'reconstructions_val' / 'grappa'
     args.main_dir = '/kaggle/working/result' / args.net_name / __file__
     args.val_loss_dir = '/kaggle/working/result' / args.net_name
 
 
     args.exp_dir.mkdir(parents=True, exist_ok=True)
-    args.val_dir.mkdir(parents=True, exist_ok=True)
+    args.val_dir1.mkdir(parents=True, exist_ok=True)
+    args.val_dir2.mkdir(parents=True, exist_ok=True)
 
     train(args)
