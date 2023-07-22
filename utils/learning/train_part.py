@@ -181,17 +181,9 @@ def train(args):
         val_loss = val_loss1 + val_loss2
         train_time = train_time1 + train_time2
         val_time = val_time1 + val_time2
-
-        print(reconstructions1)
-        print(reconstructions1.shape)
-        print(reconstructions2)
-        print(reconstructions2.shape)
         
-        reconstructions = np.concatenate((reconstructions1, reconstructions2), axis=0)
-        targets = np.concatenate((targets1, targets2), axis=0)
-        inputs = np.concatenate((inputs1, inputs2), axis=0)
         
-        val_loss_log = np.append(val_loss_log, np.array([[epoch, val_loss]]), axis=0)
+        val_loss_log = np.append(val_loss_log, np.array([[epoch+1, val_loss]]), axis=0)
         file_path = args.val_loss_dir / "val_loss_log"
         np.save(file_path, val_loss_log)
         print(f"loss file saved! {file_path}")
@@ -213,7 +205,9 @@ def train(args):
         if is_new_best:
             print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@NewRecord@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
             start = time.perf_counter()
-            save_reconstructions(reconstructions, args.val_dir, targets=targets, inputs=inputs)
+            save_reconstructions(reconstructions1, args.val_dir1, targets=targets1, inputs=inputs1)
+            save_reconstructions(reconstructions2, args.val_dir2, targets=targets2, inputs=inputs2)
+            
             print(
                 f'ForwardTime = {time.perf_counter() - start:.4f}s',
             )
