@@ -51,6 +51,7 @@ def train_epoch(args, epoch, model, data_loader, optimizer, loss_type):
     total_loss = 0.
     loop = tqdm(data_loader)
     for iter, data in enumerate(loop):
+        print(data)
         input, target, maximum, _, _ = data
         input = input.cuda(non_blocking=True)
         target = target.cuda(non_blocking=True)
