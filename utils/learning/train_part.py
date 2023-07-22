@@ -98,7 +98,12 @@ def validate(args,epoch, model, data_loader, loss_type):
             if iter % args.report_interval == 0:
                 loop.set_description(f"Valid Epoch [{epoch:3d}/{args.num_epochs:3d}]")
                 loop.set_postfix(loss=loss.item()) 
-            
+        
+        img_size = 384
+        inputs = cv2.resize(np.transpose(inputs,(1,2,0)), (img_size,img_size))
+        targets = cv2.resize(np.transpose(targets,(1,2,0)), (img_size,img_size))
+        reconstructions = cv2.resize(np.transpose(reconstructions,(1,2,0)), (img_size,img_size))
+        
     for fname in reconstructions:
         reconstructions[fname] = np.stack(
             [out for _, out in sorted(reconstructions[fname].items())]
@@ -162,10 +167,6 @@ def train(args):
         
         train_loss, train_time = train_epoch(args, epoch, model, train_loader, optimizer, loss_type)
         val_loss, num_subjects, reconstructions, targets, inputs, val_time = validate(args, epoch, model, val_loader, loss_type)
-
-        img_size = 384
-        print(inputs.shape)
-        inputs = cv2.resize(inputs, (img_size,img_size))
         
         val_loss_log = np.append(val_loss_log, np.array([[epoch, val_loss]]), axis=0)
         file_path = args.val_loss_dir / "val_loss_log"
