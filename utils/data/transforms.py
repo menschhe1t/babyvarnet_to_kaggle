@@ -22,8 +22,6 @@ class DataTransform:
         img_size = 1200
         if self.mode == 'train':
             input = cv2.resize(input[:,:, np.newaxis], (img_size,img_size))
-            
-            # input = to_tensor(input)
             if not self.isforward:
                 # target = to_tensor(target)
                 target = cv2.resize(target[:,:, np.newaxis], (img_size,img_size))
@@ -37,7 +35,6 @@ class DataTransform:
             
         elif self.mode == 'valid':
             input = cv2.resize(input[:,:, np.newaxis], (img_size,img_size))
-            # input = to_tensor(input)
             if not self.isforward:
                 # target = to_tensor(target)
                 target = cv2.resize(target[:,:, np.newaxis], (img_size,img_size))
@@ -51,8 +48,6 @@ class DataTransform:
         
         elif self.mode == 'test':
             input = cv2.resize(input[:,:, np.newaxis], (img_size,img_size))
-            
-            # input = to_tensor(input)
             if not self.isforward:
                 # target = to_tensor(target)
                 target = cv2.resize(target[:,:, np.newaxis], (img_size,img_size))
