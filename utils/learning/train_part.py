@@ -165,7 +165,7 @@ def train(args):
     # valid_transform = get_valid_transform()
     
     input_train_loader, grappa_train_loader = create_data_loaders(data_path = args.data_path_train,mode = 'train' ,args = args, shuffle=True)
-    input_val_loader, grappa_train_loader = create_data_loaders(data_path = args.data_path_val,mode = 'valid' ,args = args)
+    input_val_loader, grappa_val_loader = create_data_loaders(data_path = args.data_path_val,mode = 'valid' ,args = args)
 
     val_loss_log = np.empty((0, 2))
     
