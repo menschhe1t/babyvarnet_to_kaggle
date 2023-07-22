@@ -45,13 +45,13 @@ def forward(args):
     print(checkpoint['epoch'], checkpoint['best_val_loss'].item())
     model.load_state_dict(checkpoint['model'])
     
-    forward_loader1 = create_data_loaders(data_path = args.data_path, mode='test', args = args, data_type = 'input' isforward = True)
+    forward_loader1 = create_data_loaders(data_path = args.data_path, mode='test', args = args, data_type = 'input', isforward = True)
     reconstructions1, inputs1 = test(args, model, forward_loader1)
     reconstructions1 = cv2.resize(np.transpose(reconstructions1, (1,2,0)) , (384,384))
     inputs1 = cv2.resize(np.transpose(inputs1, (1,2,0)) , (384,384))
     save_reconstructions(reconstructions1, args.forward_dir, inputs=inputs1)
 
-    forward_loader2 = create_data_loaders(data_path = args.data_path, mode='test', args = args, data_type = 'grappa' isforward = True)
+    forward_loader2 = create_data_loaders(data_path = args.data_path, mode='test', args = args, data_type = 'grappa', isforward = True)
     reconstructions2, inputs2 = test(args, model, forward_loader2)
     reconstructions2 = cv2.resize(np.transpose(reconstructions2, (1,2,0)) , (384,384))
     inputs2 = cv2.resize(np.transpose(inputs2, (1,2,0)) , (384,384))
