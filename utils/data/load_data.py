@@ -6,7 +6,7 @@ from pathlib import Path
 from pathlib import PosixPath
 
 class SliceData(Dataset):
-    def __init__(self, root, transform, input_key, grappa_key, target_key, forward=False, data_type):
+    def __init__(self, root, transform, input_key, grappa_key, target_key, data_type, forward=False):
         self.transform = transform
         self.input_key = input_key
         self.target_key = target_key
@@ -80,7 +80,7 @@ class SliceData(Dataset):
 
 
 
-def create_data_loaders(data_path, mode, args, shuffle=False, isforward=False, data_type ):
+def create_data_loaders(data_path, mode, args,  data_type, shuffle=False, isforward=False ):
     if isforward == False:
         max_key_ = args.max_key
         target_key_ = args.target_key
@@ -93,8 +93,8 @@ def create_data_loaders(data_path, mode, args, shuffle=False, isforward=False, d
         input_key=args.input_key,
         grappa_key=args.grappa_key,
         target_key=target_key_,
-        forward = isforward,
-        data_type = data_type
+        data_type = data_type,
+        forward = isforward
     )
 
     data_loader = DataLoader(
