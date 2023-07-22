@@ -44,7 +44,7 @@ def get_lr_scheduler(mode, optimizer, T):
         return torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, T_0=T, T_mult=2, eta_min=0)
 
 
-def train_epoch(args, epoch, model, data_loader, optimizer, loss_type):
+def train_epoch(args, epoch, model, data_loader, optimizer, loss_type, data_type):
     model.train()
     start_epoch = start_iter = time.perf_counter()
     len_loader = len(data_loader)
@@ -64,7 +64,7 @@ def train_epoch(args, epoch, model, data_loader, optimizer, loss_type):
         total_loss += loss.item()
 
         #if iter % args.report_interval == 0:
-        loop.set_description(f"Train Epoch [{(epoch+1):3d}/{args.num_epochs:3d}]")
+        loop.set_description(f"{data_type} Train Epoch [{(epoch+1):3d}/{args.num_epochs:3d}]")
         loop.set_postfix(loss=loss.item()) 
         
         start_iter = time.perf_counter()
@@ -73,7 +73,7 @@ def train_epoch(args, epoch, model, data_loader, optimizer, loss_type):
 
 
 
-def validate(args,epoch, model, data_loader, loss_type):
+def validate(args,epoch, model, data_loader, loss_type, data_type):
     model.eval()
     reconstructions = defaultdict(dict)
     targets = defaultdict(dict)
@@ -105,7 +105,7 @@ def validate(args,epoch, model, data_loader, loss_type):
                 inputs[fnames[i]][int(slices[i])] = input_i
                 
             #if iter % args.report_interval == 0:
-            loop.set_description(f"Valid Epoch [{(epoch+1):3d}/{args.num_epochs:3d}]")
+            loop.set_description(f"{data_type} Valid Epoch [{(epoch+1):3d}/{args.num_epochs:3d}]")
             loop.set_postfix(loss=loss.item()) 
             
 
@@ -173,14 +173,10 @@ def train(args):
     
     for epoch in range(start_epoch, args.num_epochs):
         # print(f'Epoch #{(epoch+1):2d} ............... {args.net_name} ...............')
-        print('input_train')
-        train_loss1, train_time1 = train_epoch(args, epoch, model, input_train_loader, optimizer, loss_type)
-        print('grappa_train')
-        train_loss2, train_time2 = train_epoch(args, epoch, model, grappa_train_loader, optimizer, loss_type)
-        print('input_val')
-        val_loss1, num_subjects1, reconstructions1, targets1, inputs1, val_time1 = validate(args, epoch, model, input_val_loader, loss_type)
-        print('grappa_val')
-        val_loss2, num_subjects2, reconstructions2, targets2, inputs2, val_time2 = validate(args, epoch, model, grappa_val_loader, loss_type)
+        train_loss1, train_time1 = train_epoch(args, epoch, model, input_train_loader, optimizer, loss_type, data_type = 'input')
+        train_loss2, train_time2 = train_epoch(args, epoch, model, grappa_train_loader, optimizer, loss_type, data_type = 'grappa')
+        val_loss1, num_subjects1, reconstructions1, targets1, inputs1, val_time1 = validate(args, epoch, model, input_val_loader, loss_type, data_type = 'input')
+        val_loss2, num_subjects2, reconstructions2, targets2, inputs2, val_time2 = validate(args, epoch, model, grappa_val_loader, loss_type, data_type = 'grappa')
 
         val_loss = val_loss1 + val_loss2
         reconstructions = np.concatenate((reconstructions1, reconstructions2), axis=0)
