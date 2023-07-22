@@ -77,14 +77,14 @@ class SliceData(Dataset):
 
 
 
-def create_data_loaders(data_path, mode, args, shuffle=False, isforward=False):
+def create_input_data_loaders(data_path, mode, args, shuffle=False, isforward=False):
     if isforward == False:
         max_key_ = args.max_key
         target_key_ = args.target_key
     else:
         max_key_ = -1
         target_key_ = -1
-    input_data_storage, grappa_data_storage = SliceData(
+    input_data_storage, _ = SliceData(
         root=data_path,
         transform=DataTransform(isforward, max_key_, mode),
         input_key=args.input_key,
@@ -99,12 +99,31 @@ def create_data_loaders(data_path, mode, args, shuffle=False, isforward=False):
         shuffle=shuffle,
         num_workers=args.num_workers
     )
-  
+    
+    return input_data_loader
+
+def create_grappa_data_loaders(data_path, mode, args, shuffle=False, isforward=False):
+    if isforward == False:
+        max_key_ = args.max_key
+        target_key_ = args.target_key
+    else:
+        max_key_ = -1
+        target_key_ = -1
+    _, grappa_data_storage = SliceData(
+        root=data_path,
+        transform=DataTransform(isforward, max_key_, mode),
+        input_key=args.input_key,
+        grappa_key=args.grappa_key,
+        target_key=target_key_,
+        forward = isforward
+    )
+
     grappa_data_loader = DataLoader(
-        dataset=grappa_data_storage,
+        dataset=input_data_storage,
         batch_size=args.batch_size,
         shuffle=shuffle,
         num_workers=args.num_workers
     )
     
-    return input_data_loader, grappa_data_loader
+    return grappa_data_loader
+
