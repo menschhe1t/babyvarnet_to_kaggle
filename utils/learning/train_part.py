@@ -6,7 +6,7 @@ import time
 import cv2
 
 from collections import defaultdict
-from utils.data.load_data import create_input_data_loaders, create_grappa_data_loaders
+from utils.data.load_data import create_data_loaders
 from utils.common.utils import save_reconstructions, ssim_loss
 from utils.common.loss_function import SSIMLoss
 from utils.model.unet import Unet
@@ -164,10 +164,10 @@ def train(args):
     # train_transform = get_train_transform()
     # valid_transform = get_valid_transform()
     
-    input_train_loader = create_input_data_loaders(data_path = args.data_path_train,mode = 'train' ,args = args, shuffle=True)
-    grappa_train_loader = create_grappa_data_loaders(data_path = args.data_path_train,mode = 'train' ,args = args, shuffle=True)
-    input_val_loader = create_input_data_loaders(data_path = args.data_path_val,mode = 'valid' ,args = args)
-    grappa_val_loader = create_grappa_data_loaders(data_path = args.data_path_val,mode = 'valid' ,args = args)
+    input_train_loader = create_input_data_loaders(data_path = args.data_path_train,mode = 'train' ,args = args, shuffle=True, data_type = 'input')
+    grappa_train_loader = create_grappa_data_loaders(data_path = args.data_path_train,mode = 'train' ,args = args, shuffle=True, data_type = 'grappa')
+    input_val_loader = create_input_data_loaders(data_path = args.data_path_val,mode = 'valid' ,args = args, data_type = 'input')
+    grappa_val_loader = create_grappa_data_loaders(data_path = args.data_path_val,mode = 'valid' ,args = args, data_type = 'grappa')
     
     val_loss_log = np.empty((0, 2))
     
