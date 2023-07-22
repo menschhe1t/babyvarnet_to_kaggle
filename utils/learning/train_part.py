@@ -91,19 +91,23 @@ def validate(args,epoch, model, data_loader, loss_type):
             loss = loss_type(output, target, maximum)
             
             for i in range(output.shape[0]):
-                reconstructions[fnames[i]][int(slices[i])] = output[i].cpu().numpy()
-                #targets[fnames[i]][int(slices[i])] = target[i].numpy()
-                targets[fnames[i]][int(slices[i])] = target[i].cpu().numpy()
-                inputs[fnames[i]][int(slices[i])] = input[i].cpu().numpy()
-            
+                img_size = 384
+                output_i =  output[i].cpu().numpy()
+                target_i = target[i].cpu().numpy()
+                input_i = input[i].cpu().numpy()
+                
+                input_i = np.squeeze(cv2.resize(input_i[:,:, np.newaxis], (img_size,img_size)))
+                target_i = np.squeeze(cv2.resize(target_i[:,:, np.newaxis], (img_size,img_size)))
+                output_i = np.squeeze(cv2.resize(output_i[:,:, np.newaxis], (img_size,img_size)))
+                
+                reconstructions[fnames[i]][int(slices[i])] = output_i
+                targets[fnames[i]][int(slices[i])] = target_i
+                inputs[fnames[i]][int(slices[i])] = input_i
+                
             #if iter % args.report_interval == 0:
             loop.set_description(f"Valid Epoch [{epoch:3d}/{args.num_epochs:3d}]")
             loop.set_postfix(loss=loss.item()) 
             
-            img_size = 384
-            inputs = np.squeeze(cv2.resize(inputs[:,:, np.newaxis], (img_size,img_size)))
-            targets = np.squeeze(cv2.resize(targets[:,:, np.newaxis], (img_size,img_size)))
-            reconstructions = np.squeeze(cv2.resize(reconstructions[:,:, np.newaxis], (img_size,img_size)))
 
     for fname in reconstructions:
         reconstructions[fname] = np.stack(
