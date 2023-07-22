@@ -64,7 +64,7 @@ def train_epoch(args, epoch, model, data_loader, optimizer, loss_type):
         total_loss += loss.item()
 
         #if iter % args.report_interval == 0:
-        loop.set_description(f"Train Epoch [{epoch:3d}/{args.num_epochs:3d}]")
+        loop.set_description(f"Train Epoch [{(epoch+1):3d}/{args.num_epochs:3d}]")
         loop.set_postfix(loss=loss.item()) 
         
         start_iter = time.perf_counter()
@@ -105,7 +105,7 @@ def validate(args,epoch, model, data_loader, loss_type):
                 inputs[fnames[i]][int(slices[i])] = input_i
                 
             #if iter % args.report_interval == 0:
-            loop.set_description(f"Valid Epoch [{epoch:3d}/{args.num_epochs:3d}]")
+            loop.set_description(f"Valid Epoch [{(epoch+1):3d}/{args.num_epochs:3d}]")
             loop.set_postfix(loss=loss.item()) 
             
 
