@@ -181,6 +181,11 @@ def train(args):
         val_loss = val_loss1 + val_loss2
         train_time = train_time1 + train_time2
         val_time = val_time1 + val_time2
+
+        print(reconstructions1)
+        print(reconstructions1.shape)
+        print(reconstructions2)
+        print(reconstructions2.shape)
         
         reconstructions = np.concatenate((reconstructions1, reconstructions2), axis=0)
         targets = np.concatenate((targets1, targets2), axis=0)
