@@ -51,8 +51,7 @@ def train_epoch(args, epoch, model, data_loader, optimizer, loss_type):
     total_loss = 0.
     loop = tqdm(data_loader)
     for iter, data in enumerate(loop):
-        print(data)
-        input, target, maximum, _, _ = data
+        input, target, maximum, _, _ = data[0]
         input = input.cuda(non_blocking=True)
         target = target.cuda(non_blocking=True)
         maximum = maximum.cuda(non_blocking=True)
@@ -83,7 +82,7 @@ def validate(args,epoch, model, data_loader, loss_type):
     loop = tqdm(data_loader)
     with torch.no_grad():
         for iter, data in enumerate(loop):
-            input, target, maximum, fnames, slices = data
+            input, target, maximum, fnames, slices = data[0]
             input = input.cuda(non_blocking=True)
             output = model(input)
          
