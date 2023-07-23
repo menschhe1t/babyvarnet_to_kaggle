@@ -9,6 +9,7 @@ def parse():
     parser.add_argument('-b', '--batch-size', type=int, default=4, help='Batch size')
     parser.add_argument('-n', '--net_name', type=Path, default='test_Unet', help='Name of network')
     parser.add_argument('-p', '--path_data', type=Path, default='/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/leaderboard/', help='Directory of test data')
+    parser.add_argument('-w', '--num-workers', type=int, default=2, help='Num Workers')
     
     parser.add_argument('--in-chans', type=int, default=1, help='Size of input channels for network')
     parser.add_argument('--out-chans', type=int, default=1, help='Size of output channels for network')
