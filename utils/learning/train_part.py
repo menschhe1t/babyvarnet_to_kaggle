@@ -206,8 +206,8 @@ def train(args):
         if is_new_best:
             print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@NewRecord@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
             start = time.perf_counter()
-            # save_reconstructions(reconstructions1, args.val_dir1, targets=targets1, inputs=inputs1)
-            # save_reconstructions(reconstructions2, args.val_dir2, targets=targets2, inputs=inputs2)
+            save_reconstructions(reconstructions1, args.val_dir1, targets=targets1, inputs=inputs1)
+            save_reconstructions(reconstructions2, args.val_dir2, targets=targets2, inputs=inputs2)
             
             print(
                 f'ForwardTime = {time.perf_counter() - start:.4f}s',
