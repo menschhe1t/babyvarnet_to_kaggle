@@ -47,13 +47,13 @@ recon_acc8 = f['reconstruction']
 target_acc8 = f['target']
 
 plt.figure()
-plt.subplot(2, 3, 1)
+plt.subplot(3, 3, 1)
 plt.imshow(input_acc8[1, :, :])
 plt.title('input_acc8')
-plt.subplot(2, 3, 2)
+plt.subplot(3, 3, 2)
 plt.imshow(recon_acc8[1, :, :])
 plt.title('reconstruction_acc8')
-plt.subplot(2, 3, 3)
+plt.subplot(3, 3, 3)
 plt.imshow(target_acc8[1, :, :])
 plt.title('target_acc8')
 plt.savefig('input_result_acc8.png', dpi=300)
@@ -66,13 +66,13 @@ recon_acc8 = f['reconstruction']
 target_acc8 = f['target']
 
 plt.figure()
-plt.subplot(3, 3, 1)
+plt.subplot(4, 3, 1)
 plt.imshow(input_acc8[1, :, :])
 plt.title('grappa_acc8')
-plt.subplot(3, 3, 2)
+plt.subplot(4, 3, 2)
 plt.imshow(recon_acc8[1, :, :])
 plt.title('reconstruction_acc8')
-plt.subplot(3, 3, 3)
+plt.subplot(4, 3, 3)
 plt.imshow(target_acc8[1, :, :])
 plt.title('target_acc8')
 plt.savefig('grappa_result_acc8.png', dpi=300)
