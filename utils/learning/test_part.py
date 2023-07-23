@@ -26,7 +26,7 @@ def test(args, model, data_loader):
                 reconstruction_i =  output[i].cpu().numpy()
                
                 input_i = np.squeeze(cv2.resize(input_i[:,:, np.newaxis], (img_size,img_size)))
-                output_i = np.squeeze(cv2.resize(reconstruction_i[:,:, np.newaxis], (img_size,img_size)))
+                reconstruction_i = np.squeeze(cv2.resize(reconstruction_i[:,:, np.newaxis], (img_size,img_size)))
                 
                 reconstructions[fnames[i]][int(slices[i])] = reconstruction_i
                 inputs[fnames[i]][int(slices[i])] = input_i
