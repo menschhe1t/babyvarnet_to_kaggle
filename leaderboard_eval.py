@@ -104,7 +104,7 @@ if __name__ == '__main__':
     
     parser.add_argument('-g', '--GPU_NUM', type=int, default=0)
     parser.add_argument('-lp', '--path_leaderboard_data', type=Path, default='/kaggle/input/fmrikaggle2try/2023_snu_fastmri_dataset_onlyimage/leaderboard/')
-    
+    parser.add_argument('-w', '--num-workers', type=int, default=2, help='Num Workers')
     """
     Modify Path Below To Test Your Results
     """
