@@ -87,16 +87,25 @@ def create_data_loaders(data_path, mode, args,  data_type, shuffle=False, isforw
     else:
         max_key_ = -1
         target_key_ = -1
-    data_storage = SliceData(
-        root=data_path,
-        transform=DataTransform(isforward, max_key_, mode),
-        input_key=args.input_key,
-        grappa_key=args.grappa_key,
-        target_key=target_key_,
-        data_type = data_type,
-        forward = isforward
-    )
-
+    if mode != 'test':
+        data_storage = SliceData(
+            root=data_path,
+            transform=DataTransform(isforward, max_key_, mode),
+            input_key=args.input_key,
+            grappa_key=args.grappa_key,
+            target_key=target_key_,
+            data_type = data_type,
+            forward = isforward
+        )
+    else :
+        data_storage = SliceData(
+            root=data_path,
+            transform=DataTransform(isforward, max_key_, mode),
+            input_key=args.input_key,
+            target_key=target_key_,
+            data_type = data_type,
+            forward = isforward
+        )
     data_loader = DataLoader(
         dataset= data_storage,
         batch_size=args.batch_size,
