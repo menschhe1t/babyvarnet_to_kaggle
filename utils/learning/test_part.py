@@ -2,6 +2,7 @@ import numpy as np
 import torch
 import cv2
 
+from tqdm import tqdm
 from collections import defaultdict
 from utils.common.utils import save_reconstructions
 from utils.data.load_data import create_data_loaders
@@ -11,9 +12,10 @@ def test(args, model, data_loader):
     model.eval()
     reconstructions = defaultdict(dict)
     inputs = defaultdict(dict)
-    
+    loop = tqdm(data_loader)
     with torch.no_grad():
-        for (input, _, _, fnames, slices) in data_loader:
+        for itr, data in enumerate(loop):
+            input, _, _, fnames, slices = data[0]
             input = input.cuda(non_blocking=True)
             output = model(input)
 
