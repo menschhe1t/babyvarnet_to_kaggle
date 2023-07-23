@@ -18,7 +18,7 @@ plt.subplot(1, 3, 3)
 plt.imshow(target_acc4[1, :, :])
 plt.title('target_acc4')
 plt.savefig('input_result_acc4.png', dpi=300)
-
+plt.close() 
 
 
 f = h5py.File('/kaggle/working/result/test_Unet/reconstructions_val/grappa/brain_acc4_179.h5', 'r')
@@ -38,7 +38,7 @@ plt.subplot(2, 3, 3)
 plt.imshow(target_acc4[1, :, :])
 plt.title('target_acc4')
 plt.savefig('grappa_result_acc4.png', dpi=300)
-
+plt.close() 
 
 
 f = h5py.File('/kaggle/working/result/test_Unet/reconstructions_val/input/brain_acc8_187.h5', 'r')
@@ -57,7 +57,7 @@ plt.subplot(3, 3, 3)
 plt.imshow(target_acc8[1, :, :])
 plt.title('target_acc8')
 plt.savefig('input_result_acc8.png', dpi=300)
-
+plt.close() 
 
 
 f = h5py.File('/kaggle/working/result/test_Unet/reconstructions_val/input/brain_acc8_187.h5', 'r')
@@ -76,6 +76,6 @@ plt.subplot(4, 3, 3)
 plt.imshow(target_acc8[1, :, :])
 plt.title('target_acc8')
 plt.savefig('grappa_result_acc8.png', dpi=300)
-
+plt.close() 
 ##
 plt.show()
