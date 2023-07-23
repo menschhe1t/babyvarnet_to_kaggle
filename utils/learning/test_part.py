@@ -18,8 +18,16 @@ def test(args, model, data_loader):
             output = model(input)
 
             for i in range(output.shape[0]):
-                reconstructions[fnames[i]][int(slices[i])] = output[i].cpu().numpy()
-                inputs[fnames[i]][int(slices[i])] = input[i].cpu().numpy()
+                img_size = 384
+                
+                input_i = input[i].cpu().numpy()
+                reconstruction_i =  output[i].cpu().numpy()
+               
+                input_i = np.squeeze(cv2.resize(input_i[:,:, np.newaxis], (img_size,img_size)))
+                output_i = np.squeeze(cv2.resize(reconstruction_i[:,:, np.newaxis], (img_size,img_size)))
+                
+                reconstructions[fnames[i]][int(slices[i])] = reconstruction_i
+                inputs[fnames[i]][int(slices[i])] = input_i
 
     for fname in reconstructions:
         reconstructions[fname] = np.stack(
@@ -47,6 +55,5 @@ def forward(args):
     
     forward_loader = create_data_loaders(data_path = args.data_path, mode='test', args = args, data_type = 'input', isforward = True)
     reconstructions, inputs = test(args, model, forward_loader)
-    reconstructions = cv2.resize(np.transpose(reconstructions, (1,2,0)) , (384,384))
-    inputs = cv2.resize(np.transpose(inputs, (1,2,0)) , (384,384))
+
     save_reconstructions(reconstructions, args.forward_dir, inputs=inputs)
