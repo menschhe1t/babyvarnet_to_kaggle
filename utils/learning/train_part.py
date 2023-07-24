@@ -35,6 +35,18 @@ from tqdm import tqdm
 #                                 ToTensorV2()],        p=1.0, 
 #     )
 
+def get_optimizer(mode, params, lr):
+    if mode == 'ADAM':
+        print('ADAM')
+        return torch.optim.Adam(params, lr = lr)
+    elif mode == 'SGD':
+        print('SGD')
+        return torch.optim.SGD(params, lr=lr, momentum=0.9, weight_decay=0.0001)
+    elif mode == 'ADAMW':
+        print('ADAMW')
+        return torch.optim.AdamW(params, lr=lr)
+
+
 def get_lr_scheduler(mode, optimizer, T):
     if mode == 'StepLR':
         return torch.optim.lr_scheduler.StepLR(optimizer, step_size=T, gamma=0.5)
@@ -163,8 +175,8 @@ def train(args):
     model = Unet(in_chans = args.in_chans, out_chans = args.out_chans)
     model.to(device=device)
     loss_type = SSIMLoss().to(device=device)
-    optimizer = torch.optim.Adam(model.parameters(), args.lr)
     
+    optimizer = get_optimizer('ADAMW', model.parameters(), args.lr)
     lr_scheduler = get_lr_scheduler('CosineAnnealingWarmRestarts', optimizer, 5)
     
     best_val_loss = 1.
