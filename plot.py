@@ -9,7 +9,8 @@ target_acc4 = f['target']
 
 plt.figure()
 plt.subplot(1, 3, 1)
-plt.imshow(input_acc4[1, :, :])
+plt.imshow(input_acc4[1])
+#plt.imshow(input_acc4[1, :, :])
 plt.title('input_acc4')
 plt.subplot(1, 3, 2)
 plt.imshow(recon_acc4[1, :, :])
