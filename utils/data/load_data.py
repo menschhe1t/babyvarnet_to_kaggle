@@ -41,9 +41,7 @@ class train_SliceData(Dataset):
         with h5py.File(fname, "r") as hf:
             num_slices = hf[self.input_key].shape[0]
         return num_slices
-        
-    # def get_transform(self):
-    #     return A.resize(800,800)
+
 
     def __len__(self):
         return len(self.examples)
@@ -70,6 +68,7 @@ class train_SliceData(Dataset):
                 input = hf[self.grappa_key][dataslice]
             elif self.data_type == 'input':
                 input = hf[self.input_key][dataslice]
+            
             if self.forward:
                 target = -1
             else:
