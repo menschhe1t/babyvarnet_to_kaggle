@@ -99,12 +99,21 @@ def validate(args,epoch, model, data_loader, loss_type, data_type):
                 input_i = np.squeeze(cv2.resize(input_i[:,:, np.newaxis], (img_size,img_size)))
                 target_i = np.squeeze(cv2.resize(target_i[:,:, np.newaxis], (img_size,img_size)))
                 output_i = np.squeeze(cv2.resize(output_i[:,:, np.newaxis], (img_size,img_size)))
-                
-                reconstructions[fnames[i]][int(slices[i])] = output_i
-                targets[fnames[i]][int(slices[i])] = target_i
-                inputs[fnames[i]][int(slices[i])] = input_i
-                
-            #if iter % args.report_interval == 0:
+
+                if fnames[i] == (PosixPath('/kaggle/working/result/test_Unet/reconstructions_val/input/brain_acc4_179.h5') or
+                                 PosixPath('/kaggle/working/result/test_Unet/reconstructions_val/grappa/brain_acc4_179.h5') or
+                                 PosixPath('/kaggle/working/result/test_Unet/reconstructions_val/input/brain_acc8_187.h5') or
+                                 PosixPath('/kaggle/working/result/test_Unet/reconstructions_val/input/brain_acc8_187.h5')
+                                )
+                    reconstructions[fnames[i]][int(slices[i])] = output_i
+                    targets[fnames[i]][int(slices[i])] = target_i
+                    inputs[fnames[i]][int(slices[i])] = input_i
+
+                else :
+                    reconstructions[fnames[i]][int(slices[i])] = np.array(0)
+                    targets[fnames[i]][int(slices[i])] = np.array(0)
+                    inputs[fnames[i]][int(slices[i])] = np.array(0)
+
             loop.set_description(f"{data_type} Valid Epoch [{(epoch+1):3d}/{args.num_epochs:3d}]")
             loop.set_postfix(loss=loss.item()) 
             
