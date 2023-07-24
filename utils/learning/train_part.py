@@ -116,7 +116,7 @@ def validate(args,epoch, model, data_loader, loss_type, data_type):
                 input_i = np.squeeze(cv2.resize(input_i[:,:, np.newaxis], (img_size,img_size)))
                 target_i = np.squeeze(cv2.resize(target_i[:,:, np.newaxis], (img_size,img_size)))
                 output_i = np.squeeze(cv2.resize(output_i[:,:, np.newaxis], (img_size,img_size)))
-                print(type(fnames[i]))
+                
                 if fnames[i] == ('brain_acc4_179.h5' or 'brain_acc8_187.h5'):
                     print('here')
                     reconstructions[fnames[i]][int(slices[i])] = output_i
