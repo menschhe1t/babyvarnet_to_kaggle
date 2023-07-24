@@ -7,7 +7,7 @@ input_acc4 = f['input']
 recon_acc4 = f['reconstruction']
 target_acc4 = f['target']
 
-plt.figure()
+plt.figure(figsize=(30, 30))
 plt.subplot(1, 3, 1)
 plt.imshow(input_acc4[1, :, :])
 plt.title('input_acc4')
@@ -26,7 +26,7 @@ input_acc4 = f['input']
 recon_acc4 = f['reconstruction']
 target_acc4 = f['target']
 
-plt.figure()
+plt.figure(figsize=(30, 30))
 plt.subplot(2, 3, 1)
 plt.imshow(input_acc4[1, :, :])
 plt.title('grappa_acc4')
@@ -44,7 +44,7 @@ input_acc8 = f['input']
 recon_acc8 = f['reconstruction']
 target_acc8 = f['target']
 
-plt.figure()
+plt.figure(figsize=(30, 30))
 plt.subplot(3, 3, 1)
 plt.imshow(input_acc8[1, :, :])
 plt.title('input_acc8')
@@ -62,7 +62,7 @@ input_acc8 = f['input']
 recon_acc8 = f['reconstruction']
 target_acc8 = f['target']
 
-plt.figure()
+plt.figure(figsize=(30, 30))
 plt.subplot(4, 3, 1)
 plt.imshow(input_acc8[1, :, :])
 plt.title('grappa_acc8')
