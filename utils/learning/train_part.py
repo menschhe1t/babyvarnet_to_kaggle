@@ -105,7 +105,7 @@ def validate(args,epoch, model, data_loader, loss_type, data_type):
             target = target.cuda(non_blocking=True)
             maximum = maximum.cuda(non_blocking=True)
             loss = loss_type(output, target, maximum)
-            total_loss += loss.item()
+            total_loss += loss
             
             for i in range(output.shape[0]):
                 img_size = 384
@@ -152,7 +152,7 @@ def validate(args,epoch, model, data_loader, loss_type, data_type):
     num_subjects = len(reconstructions)
 
     
-    return total_loss, num_subjects, reconstructions, targets, inputs, time.perf_counter() - start
+    return total_loss , num_subjects, reconstructions, targets, inputs, time.perf_counter() - start
 
 
 def save_model(args, exp_dir, epoch, model, optimizer, best_val_loss, is_new_best):
@@ -233,8 +233,8 @@ def train(args):
         if is_new_best:
             print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@NewRecord@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
             start = time.perf_counter()
-            # save_reconstructions(reconstructions1, args.val_dir1, targets=targets1, inputs=inputs1)
-            # save_reconstructions(reconstructions2, args.val_dir2, targets=targets2, inputs=inputs2)
+            save_reconstructions(reconstructions1, args.val_dir1, targets=targets1, inputs=inputs1)
+            save_reconstructions(reconstructions2, args.val_dir2, targets=targets2, inputs=inputs2)
             
             print(
                 f'ForwardTime = {time.perf_counter() - start:.4f}s',
