@@ -107,7 +107,7 @@ def validate(args,epoch, model, data_loader, loss_type, data_type):
             loss = loss_type(output, target, maximum)
             total_loss += loss
             
-            for i in range(output.shape[0]):
+            for i in range(output.shape[0]): # batch사이즈에 대해
                 img_size = 384
                 output_i =  output[i].cpu().numpy()
                 target_i = target[i].cpu().numpy()
