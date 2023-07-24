@@ -60,7 +60,7 @@ plt.savefig('input_result_acc8.png', dpi=300)
 plt.close() 
 
 
-f = h5py.File('/kaggle/working/result/test_Unet/reconstructions_val/input/brain_acc8_187.h5', 'r')
+f = h5py.File('/kaggle/working/result/test_Unet/reconstructions_val/grappa/brain_acc8_187.h5', 'r')
 input_acc8 = f['input']
 recon_acc8 = f['reconstruction']
 target_acc8 = f['target']
