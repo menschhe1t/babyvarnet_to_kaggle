@@ -16,7 +16,7 @@ def parse():
     parser.add_argument('-g', '--GPU-NUM', type=int, default=0, help='GPU number to allocate')
     parser.add_argument('-w', '--num-workers', type=int, default=2, help='Num Workers')
     #parser.add_argument('-b', '--batch-size', type=int, default=36, help='Batch size') #size : 1200
-    parser.add_argument('-b', '--batch-size', type=int, default=4, help='Batch size') #size : 800
+    parser.add_argument('-b', '--batch-size', type=int, default=8, help='Batch size') #size : 800
     #parser.add_argument('-b', '--batch-size', type=int, default=2, help='Batch size') #size : 100 # debug
     parser.add_argument('-e', '--num-epochs', type=int, default=2, help='Number of epochs') # debug 
     #parser.add_argument('-e', '--num-epochs', type=int, default=35, help='Number of epochs')
