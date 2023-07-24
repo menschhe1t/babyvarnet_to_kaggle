@@ -26,6 +26,8 @@ def save_reconstructions(reconstructions, out_dir, targets=None, inputs=None):
     out_dir.mkdir(exist_ok=True, parents=True)
     for fname, recons in reconstructions.items():
         with h5py.File(out_dir / fname, 'w') as f:
+            if fname == ('brain_acc4_179.h5' or 'brain_acc8_187.h5'):
+                print('Here!')
             f.create_dataset('reconstruction', data=recons)
             if targets is not None:
                 f.create_dataset('target', data=targets[fname])
