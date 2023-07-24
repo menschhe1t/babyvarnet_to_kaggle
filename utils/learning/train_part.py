@@ -120,6 +120,7 @@ def validate(args,epoch, model, data_loader, loss_type, data_type):
                 if fnames[i] == (PosixPath('/kaggle/input/fastmri/2023_snu_fastmri_dataset_onlyimage/val/image/brain_acc4_179.h5') or
                                  PosixPath('/kaggle/input/fastmri/2023_snu_fastmri_dataset_onlyimage/val/image/brain_acc8_187.h5')
                                 ):
+                    print('here')
                     reconstructions[fnames[i]][int(slices[i])] = output_i
                     targets[fnames[i]][int(slices[i])] = target_i
                     inputs[fnames[i]][int(slices[i])] = input_i
