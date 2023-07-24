@@ -117,15 +117,8 @@ def validate(args,epoch, model, data_loader, loss_type, data_type):
                 target_i = np.squeeze(cv2.resize(target_i[:,:, np.newaxis], (img_size,img_size)))
                 output_i = np.squeeze(cv2.resize(output_i[:,:, np.newaxis], (img_size,img_size)))
 
-                if i == 0:
-                    print(fnames)
-                    print(fnames[i])
-                    print(type(fnames[i]))
-                    
-                if fnames[i] == (PosixPath('/kaggle/working/result/test_Unet/reconstructions_val/input/brain_acc4_179.h5') or
-                                 PosixPath('/kaggle/working/result/test_Unet/reconstructions_val/grappa/brain_acc4_179.h5') or
-                                 PosixPath('/kaggle/working/result/test_Unet/reconstructions_val/input/brain_acc8_187.h5') or
-                                 PosixPath('/kaggle/working/result/test_Unet/reconstructions_val/grappa/brain_acc8_187.h5')
+                if fnames[i] == (PosixPath('/kaggle/input/fastmri/2023_snu_fastmri_dataset_onlyimage/val/image/brain_acc4_179.h5') or
+                                 PosixPath('/kaggle/input/fastmri/2023_snu_fastmri_dataset_onlyimage/val/image/brain_acc8_187.h5')
                                 ):
                     reconstructions[fnames[i]][int(slices[i])] = output_i
                     targets[fnames[i]][int(slices[i])] = target_i
