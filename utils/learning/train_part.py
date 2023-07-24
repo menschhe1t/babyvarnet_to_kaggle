@@ -116,7 +116,7 @@ def validate(args,epoch, model, data_loader, loss_type, data_type):
                 input_i = np.squeeze(cv2.resize(input_i[:,:, np.newaxis], (img_size,img_size)))
                 target_i = np.squeeze(cv2.resize(target_i[:,:, np.newaxis], (img_size,img_size)))
                 output_i = np.squeeze(cv2.resize(output_i[:,:, np.newaxis], (img_size,img_size)))
-
+                print(fnames[i])
                 if fnames[i] == (PosixPath('/kaggle/input/fastmri/2023_snu_fastmri_dataset_onlyimage/val/image/brain_acc4_179.h5') or
                                  PosixPath('/kaggle/input/fastmri/2023_snu_fastmri_dataset_onlyimage/val/image/brain_acc8_187.h5')
                                 ):
