@@ -152,7 +152,7 @@ def validate(args,epoch, model, data_loader, loss_type, data_type):
     num_subjects = len(reconstructions)
 
     
-    return total_loss , num_subjects, reconstructions, targets, inputs, time.perf_counter() - start
+    return total_loss.cpu().numpy() , num_subjects, reconstructions, targets, inputs, time.perf_counter() - start
 
 
 def save_model(args, exp_dir, epoch, model, optimizer, best_val_loss, is_new_best):
