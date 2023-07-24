@@ -95,7 +95,7 @@ def validate(args,epoch, model, data_loader, loss_type, data_type):
     inputs = defaultdict(dict)
     start = time.perf_counter()
     loop = tqdm(data_loader)
-    total_loss = np.array(0)
+    total_loss = np.array(0.0)
     with torch.no_grad():
         for iter, data in enumerate(loop):
             input, target, maximum, fnames, slices = data[0]
