@@ -150,12 +150,12 @@ def validate(args,epoch, model, data_loader, loss_type, data_type):
         )
         #metric_loss = sum([ssim_loss(targets[fname], reconstructions[fname]) for fname in reconstructions])
     
-    num_subjects = len(reconstructions)
+    num_loss = len(data_loader)
     print('num')
     print(num_subjects)
     print('total')
     print(total_loss)
-    total_loss = total_loss/num_subjects
+    total_loss = total_loss/num_loss
 
     print('div total')
     print(total_loss)
