@@ -106,8 +106,7 @@ def validate(args,epoch, model, data_loader, loss_type, data_type):
             maximum = maximum.cuda(non_blocking=True)
             loss = loss_type(output, target, maximum)
             total_loss += loss.cpu().numpy()
-            print('loss')
-            print(loss)
+
             for i in range(output.shape[0]): # batch사이즈에 대해
                 img_size = 384
                 output_i =  output[i].cpu().numpy()
@@ -156,14 +155,8 @@ def validate(args,epoch, model, data_loader, loss_type, data_type):
         #metric_loss = sum([ssim_loss(targets[fname], reconstructions[fname]) for fname in reconstructions])
     
     num_loss = len(data_loader)
-    print('num')
-    print(num_subjects)
-    print('total')
-    print(total_loss)
     total_loss = total_loss/num_loss
 
-    print('div total')
-    print(total_loss)
     return total_loss, reconstructions, targets, inputs, time.perf_counter() - start
 
 
