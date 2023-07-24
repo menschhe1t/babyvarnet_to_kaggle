@@ -120,7 +120,7 @@ def validate(args,epoch, model, data_loader, loss_type, data_type):
                 if fnames[i] == (PosixPath('/kaggle/working/result/test_Unet/reconstructions_val/input/brain_acc4_179.h5') or
                                  PosixPath('/kaggle/working/result/test_Unet/reconstructions_val/grappa/brain_acc4_179.h5') or
                                  PosixPath('/kaggle/working/result/test_Unet/reconstructions_val/input/brain_acc8_187.h5') or
-                                 PosixPath('/kaggle/working/result/test_Unet/reconstructions_val/input/brain_acc8_187.h5')
+                                 PosixPath('/kaggle/working/result/test_Unet/reconstructions_val/grappa/brain_acc8_187.h5')
                                 ):
                     reconstructions[fnames[i]][int(slices[i])] = output_i
                     targets[fnames[i]][int(slices[i])] = target_i
